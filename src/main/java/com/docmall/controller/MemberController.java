@@ -21,7 +21,7 @@ public class MemberController {
 	public void join() {	// join있는 위치(header.jsp에 주소 입력)
 		
 		log.info("called... join");
-	}
+	}  
 	
 	// 비동기방식. ajax문법으로 호출
 	
@@ -32,7 +32,7 @@ public class MemberController {
 		
 		ResponseEntity<String> entity = null;
 		
-		// 서비스 메소드 호출구문작업
+		// 서비스 메소드 호출구문작업.
 		
 		return entity;
 	}

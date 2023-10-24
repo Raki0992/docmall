@@ -10,7 +10,7 @@ public class MemberVO {
         mbsp_id             VARCHAR2(15),
         mbsp_name           VARCHAR2(30)            NOT NULL,
         mbsp_email          VARCHAR2(50)            NOT NULL,
-        mbsp_password       CHAR(60)               NOT NULL,        -- 비밀번호 암호화 처리.
+        mbsp_password       CHAR(60)               NOT NULL,        -- 비밀번호 암호화 처리..
         mbsp_zipcode        CHAR(5)                 NOT NULL,
         mbsp_addr           VARCHAR2(100)            NOT NULL,
         mbsp_deaddr         VARCHAR2(100)            NOT NULL,

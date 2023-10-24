@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService {
 	//		this.memberMapper = memberMapper;
 	//	}
 	private final MemberMapper memberMapper;
-
+ 
 	@Override
 	public String idCheck(String mbsp_id) {
 		return memberMapper.idCheck(mbsp_id);
