@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,11 +12,11 @@
     <title>Pricing example · Bootstrap v4.6</title>
 
     <!-- Bootstrap core CSS -->
-<%@include file="/WEB-INF/views/comm/plugin.jsp" %>
+<%@include file="/WEB-INF/views/comm/plugin2.jsp" %>
+
 
 
     <!-- Favicons -->
-
 
 
     <style>
@@ -42,7 +42,6 @@
   <body>
     
 <%@include file="/WEB-INF/views/comm/header.jsp" %>
-  
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">Pricing</h1>
