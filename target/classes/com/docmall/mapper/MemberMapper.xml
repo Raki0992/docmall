@@ -8,5 +8,26 @@
 		SELECT MBSP_ID FROM mbsp_tbl WHERE MBSP_ID = #{mbsp_id}
 	</select>
 	
+	<insert id="join" parameterType="com.docmall.domain.MemberVO"> <!-- parameterType 생략가능 -->
+		INSERT INTO mbsp_tbl(mbsp_id, MBSP_NAME, MBSP_EMAIL, MBSP_PASSWORD, MBSP_ZIPCODE, MBSP_ADDR, MBSP_DEADDR, MBSP_PHONE)
+		 VALUES (#{mbsp_id},#{mbsp_name},#{mbsp_email},#{mbsp_password},#{mbsp_zipcode},#{mbsp_addr},#{mbsp_deaddr},#{mbsp_phone})
+	</insert>
 	
+	<select id="login" parameterType="String" resultType="com.docmall.domain.MemberVO"> <!-- select만 resultType 가능 -->
+		SELECT 
+			mbsp_id,
+			MBSP_NAME, 
+			MBSP_EMAIL, 
+			MBSP_PASSWORD, 
+			MBSP_ZIPCODE, 
+			MBSP_ADDR, 
+			MBSP_DEADDR, 
+			MBSP_PHONE, 
+			MBSP_POINT, 
+			MBSP_LASTLOGIN, 
+			MBSP_DATESUB, 
+			MBSP_UPDATEDATE 
+		FROM mbsp_tbl WHERE MBSP_ID = #{mbsp_id}
+
+	</select>
 	</mapper>

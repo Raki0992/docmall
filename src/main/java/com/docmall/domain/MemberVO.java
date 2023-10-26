@@ -21,6 +21,11 @@ public class MemberVO {
         mbsp_updatedate     DATE DEFAULT sysdate    NOT NULL
 );
  */
+	/* - 주요사용되는 기능
+	 * - 회원가입, 회원수정 폼, 회원수정하기
+	 * - db회원테이블에서 정보를 읽어올 때 
+	*/
+	
 	// 멤버필드	Date는 java.util
 	private String mbsp_id;
 	private String mbsp_name;
