@@ -26,7 +26,7 @@ public class MemberVO {
 	 * - db회원테이블에서 정보를 읽어올 때 
 	*/
 	
-	// 멤버필드	Date는 java.util
+	// 멤버필드	Date는 java.util 
 	private String mbsp_id;
 	private String mbsp_name;
 	private String mbsp_email;

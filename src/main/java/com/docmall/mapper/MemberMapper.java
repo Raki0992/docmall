@@ -10,4 +10,10 @@ public interface MemberMapper {
 	void join(MemberVO vo);
 	
 	MemberVO login(String mbsp_id);		// 비밀번호 사용안함 암호화복호화
+	
+	void modify(MemberVO vo);
+	
+	void loginTimeUpdate(String mbsp_id);
+	
+	void delete(String mbsp_id);
 }

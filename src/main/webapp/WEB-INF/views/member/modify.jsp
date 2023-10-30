@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <!doctype html>
 <html lang="en">
   <head>
@@ -47,67 +47,37 @@
   <div class="text-center">
     <div class="box box-primary">
       <div class="box-header with-border">
-      <h3 class="box-title">회원가입</h3>
+      <h3 class="box-title">회원수정</h3>
       </div>
       
       
-      <form role="form" id="joinForm" method="post" action="/member/join">
+      <form role="form" id="modifyForm" method="post" action="/member/modify">
   <div class="box-body">
     <div class="form-group row">
       <label for="mbsp_id" class="col-2">아이디</label>
-        <div class="col-8">
-      <input type="text" class="form-control" name = "mbsp_id" id="mbsp_id" placeholder="아이디 입력...">
-        </div>
-        <div class="col-2">
-      <button type="button" class="btn btn-info" id="idCheck">ID Check</button>
-   		</div>
-    </div>
-
-    <div class="form-group row">
-      <label for="mbsp_password" class="col-2">비밀번호</label>
         <div class="col-10">
-      <input type="password" class="form-control" name = "mbsp_password" id="mbsp_password" placeholder="비밀번호 입력...">
-        </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="mbsp_password2" class="col-2">비밀번호 확인</label>
-        <div class="col-10">
-      <input type="password" class="form-control" id="mbsp_password2" placeholder="비밀번호 확인...">
+      <input type="text" class="form-control" name = "mbsp_id" id="mbsp_id" value="${memberVO.mbsp_id }" readonly>
         </div>
     </div>
 
     <div class="form-group row">
       <label for="mbsp_name" class="col-2">이름</label>
         <div class="col-10">
-      <input type="text" class="form-control" name ="mbsp_name" id="mbsp_name" placeholder="이름 입력...">
+      <input type="text" class="form-control" name ="mbsp_name" id="mbsp_name" value="${memberVO.mbsp_name }" readonly>
         </div>
     </div>
 
     <div class="form-group row">
       <label for="mbsp_email" class="col-2">전자우편</label>
-        <div class="col-8">
-      <input type="email" class="form-control" name = "mbsp_email" id="mbsp_email" placeholder="전자우편입력...">
+        <div class="col-10">
+      <input type="email" class="form-control" name = "mbsp_email" id="mbsp_email" value="${memberVO.mbsp_email }" placeholder="전자우편입력...">
         </div>
-        <div class="col-2">
-          <button type="button" class="btn btn-outline-info" id="mailAuth">메일인증</button>
-            </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="authCode" class="col-2">메일인증</label>
-        <div class="col-8">
-      <input type="text" class="form-control" name = "authCode" id="authCode" placeholder="메일인증코드 입력...">
-        </div>
-        <div class="col-2">
-      <button type="button" class="btn btn-info" id="btnConfirmAuth">인증확인</button>
-   		</div>
     </div>
 
     <div class="form-group row">
       <label for="sample2_postcode" class="col-2">우편번호</label>
         <div class="col-8">
-      <input type="email" class="form-control" name = "mbsp_zipcode" id="sample2_postcode" placeholder="우편번호입력...">
+      <input type="email" class="form-control" name = "mbsp_zipcode" id="sample2_postcode" value="${memberVO.mbsp_zipcode }" placeholder="우편번호입력...">
         </div>
         <div class="col-2">
         <button type="button" onclick="sample2_execDaumPostcode()" class="btn btn-outline-info">우편번호 찾기</button>
@@ -117,14 +87,14 @@
     <div class="form-group row">
       <label for="sample2_address" class="col-2">기본주소</label>
         <div class="col-10">
-      <input type="text" class="form-control" name = "mbsp_addr" id="sample2_address" placeholder="기본주소입력...">
+      <input type="text" class="form-control" name = "mbsp_addr" id="sample2_address" value="${memberVO.mbsp_addr }" placeholder="기본주소입력...">
         </div>
     </div>
 
 	<div class="form-group row">
       <label for="sample2_detailAddress" class="col-2">상세주소</label>
         <div class="col-10">
-      <input type="text" class="form-control" name = "mbsp_deaddr" id="sample2_detailAddress" placeholder="상세주소입력...">
+      <input type="text" class="form-control" name = "mbsp_deaddr" id="sample2_detailAddress" value="${memberVO.mbsp_deaddr }" placeholder="상세주소입력...">
       <input type="hidden" id="sample2_extraAddress" placeholder="참고항목">
         </div>
     </div>
@@ -132,16 +102,18 @@
     <div class="form-group row">
       <label for="mbsp_phone" class="col-2">전화번호</label>
         <div class="col-10">
-      <input type="text" class="form-control" oninput="oninputPhone(this)" maxlength="14" name = "mbsp_phone" id="mbsp_phone" placeholder="전화번호입력...">
+      <input type="text" class="form-control" oninput="oninputPhone(this)" maxlength="14" name = "mbsp_phone" id="mbsp_phone" value="${memberVO.mbsp_phone }" placeholder="전화번호입력...">
         </div>
     </div>
+
+  </div>
     
   </div>
       
       <div class="box-footer">
-      <button type="button" class="btn btn-primary" id="btnJoin">회원가입</button>
+      <button type="button" class="btn btn-primary" id="btnModify">회원수정</button>
       </div>
-      </form>
+
       </div>
   </div>
 
@@ -241,7 +213,7 @@
         element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
     }
 
-    // 전화번호 - 이랑 자리수 14
+ // 전화번호 - 이랑 자리수 14
     function oninputPhone(target) {
 target.value = target.value
     .replace(/[^0-9]/g, '')
@@ -289,8 +261,7 @@ target.value = target.value
           });
         });
 
-  
-          
+        
 
         // 메일인증 요청
         $("#mailAuth").click(function() {
@@ -314,7 +285,6 @@ target.value = target.value
 
           });
         });
-
 
         let isConfirmAuth = false;  // 메일인증을 안한 상태
 
@@ -350,71 +320,16 @@ target.value = target.value
           });
         });
 
-        // form 태그 참조 <form role="form" id="joinForm" method="post" action="">
-        let joinForm = $("#joinForm");
+        // form 태그 참조 <form role="form" id="modifyForm" method="post" action="">
+        let modifyForm = $("#modifyForm");
 
+          // 회원수정버튼
+        $("#btnModify").click(function() {
 
-        $("#btnJoin").click(function() {
-
-          // 회원가입 유효성검사
-
-          if(!useIDCheck) {
-            alert("아이디 중복체크 바랍니다.");
-            return;
-          }
-
-          // 비밀번호 입력 체크
-          if($("#mbsp_password").val() == "") {
-              alert("비밀번호를 입력하세요.");
-              $("#mbsp_password").focus();
-              return;
-          }
-
-          // 비밀번호 확인
-          if($("#mbsp_password").val() != $("#mbsp_password2").val()) {
-              alert("비밀번호 확인이 일치하지 않습니다.");
-              $("#mbsp_password2").focus();
-              return;
-          }
-
-          // 이름 입력 체크
-          if($("#mbsp_name").val() == "") {
-            alert("이름을 입력하세요.");
-            $("#mbsp_name").focus();
-            return;
-          }
-
-          if(!isConfirmAuth) {
-            alert("메일인증 확인바랍니다.");
-            return;
-          }
-
-          if($("#sample2_postcode").val() == "") {
-            alert("우편번호를 입력하세요.");
-            $("sample2_postcode").focus();
-            return;
-          }
-
-          if($("#sample2_address").val() == "") {
-            alert("주소를 입력하세요.");
-            $("sample2_address").focus();
-            return;
-          }
-
-          if($("#sample2_detailAddress").val() == "") {
-            alert("주소를 입력하세요.");
-            $("sample2_detailAddress").focus();
-            return;
-          }
-
-          if($("#mbsp_phone").val() == "") {
-            alert("전화번호를 입력하세요.");
-            $("mbsp_phone").focus();
-            return;
-          }
+          // 회원가입 유효성검사	join.jsp에 완성
 
           // 폼 전송작업
-          joinForm.submit();
+          modifyForm.submit();
         });
 
 

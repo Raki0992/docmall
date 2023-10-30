@@ -36,6 +36,12 @@
       }
     </style>
 
+<script>
+  let msg = '${msg}';
+  if(msg == 'success') {
+    alert("회원정보가 수정됨");
+  }
+</script>
     
 
   </head>
@@ -62,7 +68,11 @@
           <li>Email support</li>
           <li>Help center access</li>
         </ul>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+
+        <!-- 버튼 클릭시 이동 -->
+        <a href="/member/join">
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Sign up for free</button>
+        </a>
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -70,6 +80,9 @@
         <h4 class="my-0 font-weight-normal">Pro</h4>
       </div>
       <div class="card-body">
+        <figure>
+          <img src="https://www.w3schools.com/tags/pic_trulli.jpg" alt="Trulli" style="width: 200px; height: 200px;" >
+        </figure>
         <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
           <li>20 users included</li>
