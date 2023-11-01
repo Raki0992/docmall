@@ -53,7 +53,7 @@ public class AdminController {
 			session.setAttribute("adminStatus", db_vo);
 			
 			// 로그인 시간 업데이트
-			adminService.loginTimeUpdate(dto.getAdmin_id());
+			adminService.loginTimeUpdate(vo.getAdmin_id());
 			
 			url = "/admin/admin_menu";	// 관리자 메뉴페이지 주소
 	}else {
