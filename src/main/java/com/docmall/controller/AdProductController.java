@@ -11,12 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -163,6 +166,65 @@ public class AdProductController {
 		
 		return FileUtils.getFile(uploadPath + dateFolderName, fileName); 
 	}
+	
+	// 체크상품 목록 수정(ajax요청)	@RestController에는 @ResponseBody포함되어있음	ResponseEntity : header와 상태코드작업시
+	// 일반요청으로 배열형태의 파라미터가 전송되어 오면, @RequestParam("pro_num_arr") [] 제외
+	@ResponseBody
+	@PostMapping("/pro_checked_modify1")
+	public ResponseEntity<String> pro_checked_modify1(
+			@RequestParam("pro_num_arr[]")List<Integer> pro_num_arr,
+			@RequestParam("pro_price_arr[]")List<Integer> pro_price_arr,
+			@RequestParam("pro_buy_arr[]")List<String> pro_buy_arr
+			) throws Exception {
+		ResponseEntity<String> entity = null;
+		log.info("상품코드" +pro_num_arr);
+		log.info("상품가격" +pro_price_arr);
+		log.info("판매여부" +pro_buy_arr);
+		
+		// 체크상품 수정 작업
+		adProductService.pro_checked_modify1(pro_num_arr, pro_price_arr, pro_buy_arr);
+		
+		entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		
+		return entity;
+	}
+	
+	// 수정버튼 2
+	@ResponseBody
+	@PostMapping("/pro_checked_modify2")
+	public ResponseEntity<String> pro_checked_modify2(
+			@RequestParam("pro_num_arr[]")List<Integer> pro_num_arr,
+			@RequestParam("pro_price_arr[]")List<Integer> pro_price_arr,
+			@RequestParam("pro_buy_arr[]")List<String> pro_buy_arr
+			) throws Exception {
+		ResponseEntity<String> entity = null;
+		log.info("상품코드" +pro_num_arr);
+		log.info("상품가격" +pro_price_arr);
+		log.info("판매여부" +pro_buy_arr);
+		
+		// 체크상품 수정 작업
+		adProductService.pro_checked_modify2(pro_num_arr, pro_price_arr, pro_buy_arr);
+		
+		entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		
+		return entity;
+	}
+	
+	// 상품수정 폼 페이지
+	@GetMapping("/pro_edit")
+	public void pro_edit(@ModelAttribute("cri") Criteria cri, Integer pro_num, Model model) throws Exception {
+		
+		// 선택한 상품정보
+		ProductVO productVO = adProductService.pro_edit(pro_num);
+		model.addAttribute("ProductVO", productVO);
+		
+		// 1차 전체카테고리 GlobalControllerAdvice 클래스 Model참조.
+		
+		// 상품카테고리에서 2차카테고리를 이용한 1차카테고리 정보를 참조.
+		model.addAttribute("first_category", adProductService.get(productVO.getCg_code()));
+		
+	}
+	
 	
 }
 

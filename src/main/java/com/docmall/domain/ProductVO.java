@@ -2,10 +2,8 @@ package com.docmall.domain;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
-@Data
+
 /*
  * CREATE TABLE PRODUCT_TBL(
         PRO_NUM             NUMBER  CONSTRAINT  PK_PRO_NUM         PRIMARY KEY,
@@ -26,7 +24,7 @@ import lombok.Data;
 
 pro_num, cg_code, pro_name, pro_price, pro_discount, pro_publisher, pro_content, pro_up_folder, pro_img, pro_amount, pro_buy, pro_date, pro_updatedate
  */
-
+@Data
 public class ProductVO {
 
 	private Integer pro_num;
