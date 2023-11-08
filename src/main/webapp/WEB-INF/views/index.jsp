@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!doctype html>
 <html lang="en">
   <head>
@@ -51,14 +51,14 @@
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">Pricing</h1>
-  <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+  <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. </p>
 </div>
 
 <div class="container">
   <div class="card-deck mb-3 text-center">
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Free</h4>
+        <h4 class="my-0 font-weight-normal">1</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
@@ -69,15 +69,18 @@
           <li>Help center access</li>
         </ul>
 
-        <!-- 버튼 클릭시 이동 -->
+        <!-- 로그인 안한 상태에서 버튼생기고  클릭시 이동 -->
+        <c:if test="${sessionScope.loginStatus == null }">
         <a href="/member/join">
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Sign up for free</button>
         </a>
+        </c:if>
       </div>
     </div>
+
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Pro</h4>
+        <h4 class="my-0 font-weight-normal">2</h4>
       </div>
       <div class="card-body">
         <figure>
@@ -93,9 +96,10 @@
         <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
       </div>
     </div>
+
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Enterprise</h4>
+        <h4 class="my-0 font-weight-normal">3</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
@@ -106,6 +110,63 @@
           <li>Help center access</li>
         </ul>
         <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+      </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">4</h4>
+      </div>
+      <div class="card-body">
+        <figure>
+          <img src="https://www.w3schools.com/tags/pic_trulli.jpg" alt="Trulli" style="width: 200px; height: 200px;" >
+        </figure>
+        <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>20 users included</li>
+          <li>10 GB of storage</li>
+          <li>Priority email support</li>
+          <li>Help center access</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+      </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">5</h4>
+      </div>
+      <div class="card-body">
+        <figure>
+          <img src="https://www.w3schools.com/tags/pic_trulli.jpg" alt="Trulli" style="width: 200px; height: 200px;" >
+        </figure>
+        <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>20 users included</li>
+          <li>10 GB of storage</li>
+          <li>Priority email support</li>
+          <li>Help center access</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+      </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">6</h4>
+      </div>
+      <div class="card-body">
+        <figure>
+          <img src="https://www.w3schools.com/tags/pic_trulli.jpg" alt="Trulli" style="width: 200px; height: 200px;" >
+        </figure>
+        <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>20 users included</li>
+          <li>10 GB of storage</li>
+          <li>Priority email support</li>
+          <li>Help center access</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
       </div>
     </div>
   </div>

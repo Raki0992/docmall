@@ -1,5 +1,7 @@
 package com.docmall.mapper;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.docmall.domain.MemberVO;
 
 public interface MemberMapper {
@@ -16,4 +18,6 @@ public interface MemberMapper {
 	void loginTimeUpdate(String mbsp_id);
 	
 	void delete(String mbsp_id);
+	
+	String getIDEmail(@RequestParam("mbsp_id") String mbsp_id, @RequestParam("mbsp_email") String mbsp_email);
 }

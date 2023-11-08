@@ -60,5 +60,13 @@
 			MBSP_ID = #{mbsp_id}
 	</delete>
 	
+	<select id="getIDEmail" resultType="String">
+		SELECT
+			mbsp_id
+		FROM
+			MBSP_TBL
+		WHERE
+			mbsp_id = #{mbsp_id} AND mbsp_email = #{mbsp_email}
+	</select>
 	
 	</mapper>

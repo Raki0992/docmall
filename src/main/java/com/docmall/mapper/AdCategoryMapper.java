@@ -10,5 +10,7 @@ public interface AdCategoryMapper {
 	
 	// 1차 카테고리 받아오기
 	List<CategoryVO> getSecondCategoryList(Integer cg_parent_code);
+	
+	CategoryVO get(Integer cg_code);
 }
  

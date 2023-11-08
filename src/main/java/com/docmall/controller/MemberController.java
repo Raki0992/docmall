@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.docmall.domain.MemberVO;
@@ -252,6 +253,18 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 아이디, 비번 찾기
+	@GetMapping("/forget")
+	public void forget() {
+		
+	}
+	
+	// 비번찾기 : 임시비밀번호 발급
+	@PostMapping("/searchPW")
+	public String searchPW(@RequestParam("mbsp_id") String mbsp_id, @RequestParam("mbsp_email") String mbsp_email) {
+		
+		return "";
+	}
 	
 	
 }

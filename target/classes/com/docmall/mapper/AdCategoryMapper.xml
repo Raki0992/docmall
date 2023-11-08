@@ -26,4 +26,14 @@
 			CG_PARENT_CODE = #{cg_parent_code}
 		
 	</select>
+	
+	<!-- 상품테이블의 2차카테고리의 1차카테고리 정보 -->
+	<select id="get" parameterType="Integer" resultType="com.docmall.domain.CategoryVO">
+		SELECT 
+			cg_code, cg_parent_code, cg_name 
+		FROM 
+			CATEGORY_TBL 
+		WHERE 
+			CG_CODE = #{CG_CODE}
+	</select>
 	</mapper>

@@ -26,5 +26,10 @@ public class AdCategoryServiceImpl implements AdCategoryService {
 	public List<CategoryVO> getSecondCategoryList(Integer cg_parent_code) {
 		return adCategoryMapper.getSecondCategoryList(cg_parent_code);
 	}
+
+	@Override
+	public CategoryVO get(Integer cg_code) {
+		return adCategoryMapper.get(cg_code); 
+	}
 	
 }
