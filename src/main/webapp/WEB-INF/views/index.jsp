@@ -49,6 +49,8 @@
     
 <%@include file="/WEB-INF/views/comm/header.jsp" %>
 
+<%@include file="/WEB-INF/views/comm/category_menu.jsp" %>
+
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">Pricing</h1>
   <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. </p>
@@ -175,6 +177,8 @@
 </div>
 
 <%@include file="/WEB-INF/views/comm/plugin.jsp" %>
+<!-- 카테고리 메뉴 자바스크립트 작업 -->
+<script src="/js/category_menu.js"></script>
     
   </body>
 </html>

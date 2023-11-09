@@ -68,7 +68,7 @@
     <div class="mb-3 text-center row">
       <div class="col-sm-6">
         <h3>아이디 찾기</h3>
-    <form id="searchForm" action="/member/searchID" method="post">
+    <form id="searchForm" action="searchID" method="post">
           <div class="form-group row">
             <label for="mbsp_name" class="col-4">이름</label>
               <div class="col-8">
@@ -94,13 +94,13 @@
       <div class="form-group row">
         <label for="mbsp_id" class="col-4">아이디</label>
           <div class="col-8">
-        <input type="text" class="form-control" name="mbsp_id" id="mbsp_id" placeholder="아이디 입력..." required>
+        <input type="text" class="form-control" name ="mbsp_id" id="mbsp_id" placeholder="아이디 입력...">
           </div>
       </div>
       <div class="form-group row">
         <label for="mbsp_email" class="col-4">이메일</label>
       <div class="col-8">
-    <input type="text" class="form-control" name="mbsp_email" id="mbsp_email" placeholder="이메일 입력..." required>
+    <input type="text" class="form-control" name ="mbsp_email" id="mbsp_email" placeholder="이메일 입력...">
       </div>
   </div>
   <div class="form-group row">

@@ -47,4 +47,21 @@ public class MemberServiceImpl implements MemberService {
 	public void delete(String mbsp_id) {
 		memberMapper.delete(mbsp_id); 
 	}
+
+	@Override
+	public String getIDEmail(String mbsp_id, String mbsp_email) {
+		return memberMapper.getIDEmail(mbsp_id, mbsp_email); 
+	}
+
+	@Override
+	public void changePW(String mbsp_id, String enc_pw) {
+		memberMapper.changePW(mbsp_id, enc_pw);
+	}
+
+	@Override
+	public String getID(String mbsp_name, String mbsp_email) {
+		return memberMapper.getID(mbsp_name, mbsp_email);
+	}
+
+	
 }

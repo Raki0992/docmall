@@ -41,7 +41,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<!-- service 패키지 -->
+	<!-- service 패키지	bean생성해서 객체를Controller에  넘김 -->
 	<context:component-scan base-package="com.docmall.service" />
 	<!-- mapper 패키지 -->
 	<mybatis-spring:scan base-package="com.docmall.mapper"/>

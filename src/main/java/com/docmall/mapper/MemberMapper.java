@@ -1,6 +1,6 @@
 package com.docmall.mapper;
 
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.Param;
 
 import com.docmall.domain.MemberVO;
 
@@ -19,5 +19,9 @@ public interface MemberMapper {
 	
 	void delete(String mbsp_id);
 	
-	String getIDEmail(@RequestParam("mbsp_id") String mbsp_id, @RequestParam("mbsp_email") String mbsp_email);
+	String getIDEmail(@Param("mbsp_id") String mbsp_id, @Param("mbsp_email") String mbsp_email);
+	
+	void changePW(@Param("mbsp_id") String mbsp_id, @Param("enc_pw") String enc_pw);
+	
+	String getID(@Param("mbsp_name") String mbsp_name, @Param("mbsp_email") String mbsp_email);
 }

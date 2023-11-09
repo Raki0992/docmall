@@ -32,7 +32,7 @@ public class GlobalControllerAdvice {
 		model.addAttribute("firstCategoryList", firstCategoryList); 
 	}
 	
-	
+	  
 }
 
 

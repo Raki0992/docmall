@@ -1,5 +1,7 @@
 package com.docmall.controller;
 
+import java.util.UUID;
+
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.docmall.domain.MemberVO;
+import com.docmall.dto.EmailDTO;
 import com.docmall.dto.LoginDTO;
+import com.docmall.service.EmailService;
 import com.docmall.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,8 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class MemberController {
 	private final MemberService memberService;
+	
+	private final EmailService emailService;
 	
 	// 생성자를 통하여 주입받는 필드에 인터페이스를 사용하는 이유? 유지보수
 	private final PasswordEncoder passwordEncoder; 
@@ -259,17 +265,79 @@ public class MemberController {
 		
 	}
 	
-	// 비번찾기 : 임시비밀번호 발급
-	@PostMapping("/searchPW")
-	public String searchPW(@RequestParam("mbsp_id") String mbsp_id, @RequestParam("mbsp_email") String mbsp_email) {
+	// 아이디찾기 : 아이디 발급
+	@PostMapping("/searchID")
+	public String searchID(@RequestParam("mbsp_name") String mbsp_name, @RequestParam("mbsp_email") String mbsp_email, RedirectAttributes rttr) {
+		
+		// 이름과 이메일 일치와 존재유무 확인
+		String db_masp_name = memberService.getID(mbsp_name, mbsp_email);
+		
+		String url = "";
+		String msg = "";
+		
+		// 아이디 발송
+		
 		
 		return "";
+	}
+	
+	// 비번찾기 : 임시비밀번호 발급
+	@PostMapping("/searchPW")
+	public String searchPW(@RequestParam("mbsp_id") String mbsp_id, 
+						   @RequestParam("mbsp_email") String mbsp_email, RedirectAttributes rttr) {
+		
+		// 아이디와 메일정보 일치와 존재유무 확인
+		String db_mbsp_id = memberService.getIDEmail(mbsp_id, mbsp_email);
+		String temp_pw = "";
+		
+		String url = "";
+		String msg = "";
+		
+		
+		
+		if(db_mbsp_id != null) {
+			
+			// 임시비밀번호 생성
+			UUID uuid = UUID.randomUUID();
+			
+			log.info("임시비번 : " + uuid); 
+			
+			temp_pw = uuid.toString().substring(0, 6);	// 임시비번 자리수 설정
+			
+			String encodepw = passwordEncoder.encode(temp_pw);	// 비밀번호 변수 선언
+			
+			// 회원에게 임시비밀번호를 메일발송
+			memberService.changePW(db_mbsp_id, encodepw);
+			
+			// 회원 비밀번호를 암호화하여 DB에 수정작업
+			EmailDTO dto = new EmailDTO("DocMall", "DocMall@docmall.com", mbsp_email, "DocMall 임시비밀번호입니다.", 
+										"DocMall 임시비밀번호" + encodepw + "입니다.");
+			
+			log.info("비밀번호확인" + temp_pw);
+			
+			try {
+				emailService.sendMail(dto, temp_pw);
+				url = "/member/login";
+				msg = "메일이 발송되었습니다.";
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else {
+			url = "/member/forget";
+			msg = "입력하신 정보가 일치하지 않습니다. \n 다시 확인해주세요.";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
+		
+		return "redirect:" + url;
 	}
 	
 	
 }
 
-
+ 
 
 
 

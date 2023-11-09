@@ -15,7 +15,7 @@
 			CG_PARENT_CODE IS NULL
 	</select>
 	
-	<select id="getSecondCategoryList" resultType="com.docmall.domain.CategoryVO">
+	<select id="getSecondCategoryList" parameterType="Integer" resultType="com.docmall.domain.CategoryVO">
 		SELECT 
 			CG_CODE, 
 			CG_PARENT_CODE, 
@@ -23,7 +23,7 @@
 		FROM 
 			CATEGORY_TBL 
 		WHERE 
-			CG_PARENT_CODE = #{cg_parent_code}
+			CG_PARENT_CODE = #{cg_parent_code} 
 		
 	</select>
 	
