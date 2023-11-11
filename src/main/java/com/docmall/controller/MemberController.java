@@ -267,18 +267,40 @@ public class MemberController {
 	
 	// 아이디찾기 : 아이디 발급
 	@PostMapping("/searchID")
-	public String searchID(@RequestParam("mbsp_name") String mbsp_name, @RequestParam("mbsp_email") String mbsp_email, RedirectAttributes rttr) {
+	public String searchID(@RequestParam("mbsp_name") String mbsp_name, @RequestParam("mbsp_id") String mbsp_id,
+						   @RequestParam("mbsp_email") String mbsp_email, RedirectAttributes rttr) {
 		
 		// 이름과 이메일 일치와 존재유무 확인
-		String db_masp_name = memberService.getID(mbsp_name, mbsp_email);
+		String db_mbsp_id = memberService.getID(mbsp_name, mbsp_id, mbsp_email);
 		
 		String url = "";
 		String msg = "";
 		
-		// 아이디 발송
+		log.info("정보확인" +db_mbsp_id);
+		
+		if(db_mbsp_id != null) {
+			// 아이디 발송
+			EmailDTO dto = new EmailDTO("DocMall", "DocMall@docmall.com", mbsp_email, "DocMall 아이디입니다.", 
+					"DocMall 아이디" + mbsp_id + "입니다.");
+			
+			try {
+				emailService.sendMail(dto, mbsp_id);
+				url = "/member/login";
+				msg = "메일이 발송되었습니다.";
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else {
+			url = "/member/forget";
+			msg = "입력하신 정보가 일치하지 않습니다. \n 확인해주세요.";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
 		
 		
-		return "";
+		return "redirect:" + url;
 	}
 	
 	// 비번찾기 : 임시비밀번호 발급

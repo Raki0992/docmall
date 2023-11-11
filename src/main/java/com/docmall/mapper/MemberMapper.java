@@ -23,5 +23,5 @@ public interface MemberMapper {
 	
 	void changePW(@Param("mbsp_id") String mbsp_id, @Param("enc_pw") String enc_pw);
 	
-	String getID(@Param("mbsp_name") String mbsp_name, @Param("mbsp_email") String mbsp_email);
+	String getID(@Param("mbsp_name") String mbsp_name, @Param("mbsp_id") String mbsp_id, @Param("mbsp_email") String mbsp_email);
 }

@@ -68,7 +68,7 @@
     <div class="mb-3 text-center row">
       <div class="col-sm-6">
         <h3>아이디 찾기</h3>
-    <form id="searchForm" action="searchID" method="post">
+    <form id="searchForm" action="/membet/searchID" method="post">
           <div class="form-group row">
             <label for="mbsp_name" class="col-4">이름</label>
               <div class="col-8">
@@ -125,11 +125,6 @@
     
     <script>
 
-      $(Document).ready(function() {
-        $("#btnIDPW").on("click", function() {
-          location.href = "/member/foget"
-        });
-      });
 
 
     </script>

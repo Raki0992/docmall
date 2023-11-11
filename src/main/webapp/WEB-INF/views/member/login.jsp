@@ -91,12 +91,11 @@
       <div class="box-footer">
       <button type="submit" class="btn btn-primary" id="btnlogin">로그인</button>
       </div>
-
+<br>
       <div>
         <nav class="my-2 my-md-0 mr-md-3">
-          <a href="/member/forget" id="btnIDPW" class="btn btn-primary" >아이디 찾기</a> |
-          <a href="/member/forget" id="btnIDPW" class="btn btn-primary">비밀번호 찾기</a> |
-          <a href="/member/join" class="btn btn-primary">회원가입</a> |
+          <a href="/member/forget" id="btnIDPW" class="btn btn-primary" >아이디 비밀번호 찾기</a> |
+          <a href="/member/join" class="btn btn-primary">회원가입</a> 
         </nav>
       </div>
     

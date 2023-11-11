@@ -123,16 +123,9 @@
 
 <%@include file="/WEB-INF/views/comm/plugin.jsp" %>
     
-    <script>
-
-      $(Document).ready(function() {
-        $("#btnIDPW").on("click", function() {
-          location.href = "/member/foget"
-        });
-      });
 
 
-    </script>
+
   </body>
 </html>
     
