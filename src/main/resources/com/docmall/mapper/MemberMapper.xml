@@ -78,7 +78,7 @@
  			MBSP_ID = #{mbsp_id}
 	</update>
 	
-	<select id="getID">
+	<select id="getID" resultType="String"> 
 		SELECT 
 			MBSP_ID 
 		FROM

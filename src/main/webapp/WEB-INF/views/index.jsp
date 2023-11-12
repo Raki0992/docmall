@@ -71,7 +71,7 @@
           <li>Help center access</li>
         </ul>
 
-        <!-- 로그인 안한 상태에서 버튼생기고  클릭시 이동 -->
+        <!-- 로그인 안한 상태에서 버튼생기고 클릭시 이동 -->
         <c:if test="${sessionScope.loginStatus == null }">
         <a href="/member/join">
         <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Sign up for free</button>

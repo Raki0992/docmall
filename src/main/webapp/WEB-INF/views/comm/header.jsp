@@ -19,15 +19,16 @@
   	<c:if test="${sessionScope.loginStatus == null }">
     <a class="p-2 text-dark" href="/member/login">Login</a>
     <a class="p-2 text-dark" href="/member/join">Join</a>
+    <a class="p-2 text-dark" href="/member/login">MyPage</a>
     </c:if>
     
     <!-- 로그인 이후 표시 -->    
     <c:if test="${sessionScope.loginStatus != null }">
     <a class="p-2 text-dark" href="/member/logout">Logout</a>
     <a class="p-2 text-dark" href="/member/confirmPw">Modify</a>
+    <a class="p-2 text-dark" href="/member/mypage">MyPage</a>
     </c:if>
     
-    <a class="p-2 text-dark" href="/member/mypage">MyPage</a>
     <a class="p-2 text-dark" href="#">Order</a>
     <a class="p-2 text-dark" href="#">Cart</a>
     

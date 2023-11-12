@@ -267,7 +267,7 @@ public class MemberController {
 	
 	// 아이디찾기 : 아이디 발급
 	@PostMapping("/searchID")
-	public String searchID(@RequestParam("mbsp_name") String mbsp_name, @RequestParam("mbsp_id") String mbsp_id,
+	public String searchID(@RequestParam("mbsp_name") String mbsp_name, @RequestParam(value="mbsp_id", required=false) String mbsp_id,
 						   @RequestParam("mbsp_email") String mbsp_email, RedirectAttributes rttr) {
 		
 		// 이름과 이메일 일치와 존재유무 확인
@@ -280,10 +280,9 @@ public class MemberController {
 		
 		if(db_mbsp_id != null) {
 			// 아이디 발송
-			EmailDTO dto = new EmailDTO("DocMall", "DocMall@docmall.com", mbsp_email, "DocMall 아이디입니다.", 
-					"DocMall 아이디" + mbsp_id + "입니다.");
+			EmailDTO dto = new EmailDTO("DocMall", "DocMall@docmall.com", mbsp_email, "DocMall 아이디입니다.", mbsp_id);
 			
-			try {
+			try { 
 				emailService.sendMail(dto, mbsp_id);
 				url = "/member/login";
 				msg = "메일이 발송되었습니다.";
@@ -298,7 +297,6 @@ public class MemberController {
 		}
 		
 		rttr.addFlashAttribute("msg", msg);
-		
 		
 		return "redirect:" + url;
 	}
