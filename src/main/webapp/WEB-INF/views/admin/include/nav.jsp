@@ -36,7 +36,17 @@
         
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>주문관리</span></a></li>
         
-        <li><a href="#"><i class="fa fa-link"></i> <span>회원관리</span></a></li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>회원관리</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          
+          <ul class="treeview-menu">
+            <li><a href="/admin/member_list">회원정보</a></li>
+          </ul>
+        </li>
         
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>상품관리</span>
@@ -49,8 +59,8 @@
             <li><a href="/admin/product/pro_insert">상품등록</a></li>
             <li><a href="/admin/product/pro_list">상품목록</a></li>
           </ul>
-          
         </li>
+        
       </ul>
       <!-- /.sidebar-menu -->
     </section>

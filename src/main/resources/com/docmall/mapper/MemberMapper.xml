@@ -78,9 +78,9 @@
  			MBSP_ID = #{mbsp_id}
 	</update>
 	
-	<select id="getID" resultType="String"> 
+	<select id="getID" resultType="com.docmall.domain.MemberVO"> 
 		SELECT 
-			MBSP_ID 
+			mbsp_id, MBSP_NAME, MBSP_EMAIL, MBSP_PASSWORD, MBSP_ZIPCODE, MBSP_ADDR, MBSP_DEADDR, MBSP_PHONE, MBSP_POINT, MBSP_LASTLOGIN, MBSP_DATESUB, MBSP_UPDATEDATE
 		FROM
 			MBSP_TBL
 		WHERE 

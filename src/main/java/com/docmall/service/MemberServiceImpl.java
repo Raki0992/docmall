@@ -59,8 +59,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String getID(String mbsp_name, String mbsp_id, String mbsp_email) {
-		return memberMapper.getID(mbsp_name, mbsp_id, mbsp_email);
+	public MemberVO getID(String mbsp_name ,String mbsp_email) {
+		return memberMapper.getID(mbsp_name, mbsp_email);
 	}
 
 	

@@ -21,4 +21,17 @@
 		WHERE 
 			ADMIN_ID = #{admin_id}
 	</update>
+	
+	<select id="member_list" parameterType="String" resultType="com.docmall.domain.MemberVO">
+		SELECT
+			mbsp_id, MBSP_NAME, MBSP_EMAIL, MBSP_ADDR, MBSP_PHONE, MBSP_LASTLOGIN
+		FROM
+			MBSP_TBL
+	</select>
 	</mapper>
+	
+	
+	
+	
+	
+	

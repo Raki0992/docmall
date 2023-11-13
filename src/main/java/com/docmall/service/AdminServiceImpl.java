@@ -1,8 +1,12 @@
 package com.docmall.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.docmall.domain.AdminVO;
+import com.docmall.domain.MemberVO;
+import com.docmall.dto.Criteria;
 import com.docmall.mapper.AdminMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void loginTimeUpdate(String admin_id) {
 		adminMapper.loginTimeUpdate(admin_id);
+	}
+
+	@Override
+	public List<MemberVO> member_list(Criteria cri) {
+		return adminMapper.member_list(cri);
 	}
 	
 //	public AdminServiceImpl(AdminMapper adminMapper) {

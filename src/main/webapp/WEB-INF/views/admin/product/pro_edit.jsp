@@ -75,15 +75,15 @@ desired effect
 					<div class="col-md-12">
 						<div class="box box-primary">
 							<div class="box-header with-border">
+								<!--  mt-5 : margin top 위쪽 여백 -->
 								<h3 class="box-title mt-5">Product Edit</h3>
                 <!-- 페이지 Criteria 사용-->
                 <form id="actionForm" action="" method="get">
-                  <input type="hidden" name="pageNum" id="pageNum" value="${cri.pageNum}" />
-                  <input type="hidden" name="amount" id="amount" value="${cri.amount}" />
-                  <input type="hidden" name="type" id="type" value="${cri.type}" />
-                  <input type="hidden" name="keyword" id="keyword" value="${cri.keyword}" />
+                 	<input type="hidden" name="pageNum" id="pageNum" value="${cri.pageNum}" />
+		            <input type="hidden" name="amount" id="amount" value="${cri.amount}" />
+		            <input type="hidden" name="type" id="type" value="${cri.type}" />
+		            <input type="hidden" name="keyword" id="keyword" value="${cri.keyword}" />
                 </form>
-								<!--  mt-5 : margin top 위쪽 여백 -->
 							</div>
 
 							<!-- 절대경로 / board/register -->
@@ -92,6 +92,10 @@ desired effect
 									<div class="form-group row">
 										<label for="title" class="col-md-2 col-form-label">카테고리</label> 
                     <div class="col-md-3">
+                    	  <input type="hidden" name="pageNum" id="pageNum" value="${cri.pageNum}" />
+		                  <input type="hidden" name="amount" id="amount" value="${cri.amount}" />
+		                  <input type="hidden" name="type" id="type" value="${cri.type}" />
+		                  <input type="hidden" name="keyword" id="keyword" value="${cri.keyword}" />
                       <select class="form-control" id="firstCategory">
                         <option>1차 카테고리 선택</option>
                         <c:forEach items="${firstCategoryList }" var="categoryVO">

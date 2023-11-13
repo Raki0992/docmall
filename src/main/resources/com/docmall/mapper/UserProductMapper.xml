@@ -4,8 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="com.docmall.mapper.UserProductMapper">
 	
-	<!-- CDATA 섹션(xml에 문법사용가능하게 함) -->
-	<select id="pro_list" resultType="com.docmall.domain.ProductVO" parameterType="com.docmall.dto.Criteria">
+	<!-- CDATA 섹션(xml에 문법사용가능하게 함) parameter 2개이상시 map으로 처리-->
+	<select id="pro_list" resultType="com.docmall.domain.ProductVO" parameterType="map">	
 	<![CDATA[
 	select 
 		PRO_NUM, CG_CODE, PRO_NAME, PRO_PRICE, PRO_DISCOUNT, PRO_PUBLISHER, PRO_CONTENT, PRO_UP_FOLDER, PRO_IMG, PRO_AMOUNT, PRO_BUY, PRO_DATE, PRO_UPDATEDATE
@@ -17,7 +17,7 @@
             PRODUCT_TBL	
 		where 
 			cg_code = #{cg_code}
-		AND
+			AND
 			rownum <= #{cri.pageNum} * #{cri.amount}
 		)
 		where

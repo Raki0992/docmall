@@ -3,6 +3,7 @@ package com.docmall.mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.docmall.domain.MemberVO;
+import com.docmall.domain.ProductVO;
 
 public interface MemberMapper {
 // interface는 자동으로 public제공하기 때문에 사용안해도 됨
@@ -23,5 +24,6 @@ public interface MemberMapper {
 	
 	void changePW(@Param("mbsp_id") String mbsp_id, @Param("enc_pw") String enc_pw);
 	
-	String getID(@Param("mbsp_name") String mbsp_name, @Param("mbsp_id") String mbsp_id, @Param("mbsp_email") String mbsp_email);
+	MemberVO getID(@Param("mbsp_name") String mbsp_name , @Param("mbsp_email") String mbsp_email);
+	
 }

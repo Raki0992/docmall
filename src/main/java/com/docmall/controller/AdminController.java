@@ -1,16 +1,21 @@
 package com.docmall.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.docmall.domain.AdminVO;
+import com.docmall.domain.MemberVO;
 import com.docmall.dto.AdminLoginDTO;
+import com.docmall.dto.Criteria;
 import com.docmall.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -87,7 +92,17 @@ public class AdminController {
 		
 	}
 	
-	
+	// 회원관리 페이지
+	@GetMapping("/member_list")
+	public void member_list(MemberVO vo, Criteria cri, Model model) throws Exception {
+		log.info("회원관리");
+		
+		List<MemberVO> member_list = adminService.member_list(cri);
+		
+		model.addAttribute("member_list", member_list);
+		
+		
+	}
 	
 	
 	

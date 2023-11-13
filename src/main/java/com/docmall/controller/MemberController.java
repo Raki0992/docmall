@@ -267,23 +267,22 @@ public class MemberController {
 	
 	// 아이디찾기 : 아이디 발급
 	@PostMapping("/searchID")
-	public String searchID(@RequestParam("mbsp_name") String mbsp_name, @RequestParam(value="mbsp_id", required=false) String mbsp_id,
-						   @RequestParam("mbsp_email") String mbsp_email, RedirectAttributes rttr) {
+	public String searchID(@RequestParam("mbsp_name") String mbsp_name, @RequestParam("mbsp_email") String mbsp_email, RedirectAttributes rttr) {
 		
 		// 이름과 이메일 일치와 존재유무 확인
-		String db_mbsp_id = memberService.getID(mbsp_name, mbsp_id, mbsp_email);
+		MemberVO db_VO = memberService.getID(mbsp_name, mbsp_email);
 		
 		String url = "";
 		String msg = "";
 		
-		log.info("정보확인" +db_mbsp_id);
+		log.info("정보확인");
 		
-		if(db_mbsp_id != null) {
+		if(db_VO != null) {
 			// 아이디 발송
-			EmailDTO dto = new EmailDTO("DocMall", "DocMall@docmall.com", mbsp_email, "DocMall 아이디입니다.", mbsp_id);
+			EmailDTO dto = new EmailDTO("DocMall", "DocMall@docmall.com", mbsp_email, "DocMall 아이디입니다.", db_VO.getMbsp_id());
 			
 			try { 
-				emailService.sendMail(dto, mbsp_id);
+				emailService.sendMail(dto, db_VO.getMbsp_id()); 
 				url = "/member/login";
 				msg = "메일이 발송되었습니다.";
 				

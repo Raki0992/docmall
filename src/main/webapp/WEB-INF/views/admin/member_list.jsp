@@ -16,27 +16,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <%@include file="/WEB-INF/views/admin/include/plugin1.jsp" %>
   
+  <style>
+
+    tr th {
+      text-align: center;
+    }
+
+  </style>
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -66,14 +55,14 @@ desired effect
       <div class="text-center">
         <div class="box box-primary">
           <div class="box-header with-border">
-          <h3 class="box-title">상품목록</h3>
+          <h3 class="box-title">회원목록</h3>
           </div>
 
       <div class="row">
 					<div class="col-md-12">
 						<div class="box">
 							<div class="box-header with-border">
-								<h3 class="box-title">Product List</h3>
+								<h3 class="box-title">Member List</h3>
 							</div>
 
 							<div class="box-body">
@@ -81,10 +70,10 @@ desired effect
                   <form action="/admin/product/pro_list" method="get">	<!-- 검색은 get방식-->
                     <select name="type">	<!-- 주소에 맞게 name 입력 -->
                       <option selected>검색종류선택</option>
-                      <option value="N" ${pageMaker.cri.type == 'N'? 'selected': ''}>상품명</option>
-                      <option value="C" ${pageMaker.cri.type == 'C'? 'selected': ''}>상품코드</option>
-                      <option value="P" ${pageMaker.cri.type == 'P'? 'selected': ''}>제조사</option>
-                      <option value="NP" ${pageMaker.cri.type == 'NP'? 'selected': ''}>상품명 or 제조사</option>
+                      <option value="N" ${pageMaker.cri.type == 'N'? 'selected': ''}>이름</option>
+                      <option value="C" ${pageMaker.cri.type == 'C'? 'selected': ''}>이메일</option>
+                      <option value="P" ${pageMaker.cri.type == 'P'? 'selected': ''}>주소</option>
+                      <option value="NP" ${pageMaker.cri.type == 'NP'? 'selected': ''}>전화번호</option>
                     </select>
                     <input type="text" name="keyword" value="${pageMaker.cri.keyword}" />	<!-- 주소에 맞게 name 입력 -->
                     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" />
@@ -96,33 +85,24 @@ desired effect
 									<tbody>
 									<!-- 제목 -->
 										<tr>
-											<th style="width: 2%"><input type="checkbox" id="checkAll" value="${productVO.pro_num }"></th>
-											<th style="width: 8%">상품코드</th>
-											<th style="width: 25%">상품명</th>
-											<th style="width: 10%">가격</th>
-											<th style="width: 20%">등록일</th>
-											<th style="width: 15%">판매여부</th>
-											<th style="width: 10%">수정</th>
-											<th style="width: 10%">삭제</th>
+											<th style="width: 10%">아이디</th>
+											<th style="width: 10%">이름</th>
+											<th style="width: 20%">이메일</th>
+											<th style="width: 30%">주소</th>
+											<th style="width: 15%">전화번호</th>
+											<th style="width: 10%">마지막 접속일자</th>
+											<th style="width: 3%">탈퇴</th>
 										</tr>
 										<!-- 내용 forEach안에서 id사용불가 (중복) -->
-										<c:forEach items="${pro_list }" var="productVO"> 
+										<c:forEach items="${member_list }" var="memberVO"> 
 										<tr>
-											<td><input type="checkbox" name="check" value="${productVO.pro_num }"></td>
-											<td>${productVO.pro_num }</td>
-											<td>
-												<a class="move" href="#" data-bno="${productVO.pro_num }"><img src="/admin/product/imageDisplay?dateFolderName=${productVO.pro_up_folder }&fileName=s_${productVO.pro_img }"></a>
-												<a class="move pro_name" href="#" data-bno="${productVO.pro_num }">${productVO.pro_name }</a>
-											</td>
-											<td><input type="text" name="pro_price" value="${productVO.pro_price }"></td>
-											<td><fmt:formatDate value="${productVO.pro_date }" pattern="yyyy-MM-dd" /></td>
-											<td>
-                        <select id="pro_buy" name="pro_buy">
-                          <option value="Y" ${productVO.pro_buy == 'Y'? 'selected':''} >판매가능</option>
-                          <option value="N" ${productVO.pro_buy == 'N'? 'selected':''} >판매불가능</option>
-                        </select>
-                      </td>
-											<td><button class="btn btn-warning" name="btn_pro_edit">수정</button></td>
+											<td>${memberVO.mbsp_id}</td>
+											<td>${memberVO.mbsp_name}</td>
+											<td>${memberVO.mbsp_email}</td>
+											<td>${memberVO.mbsp_addr}</td>
+											<td>${memberVO.mbsp_phone}</td>
+											<td><fmt:formatDate value="${memberVO.mbsp_lastlogin }" pattern="yyyy-MM-dd" /></td>
+					  
 											<td><button class="btn btn-danger btn_pro_del">삭제</button></td>
 										</tr>
 										</c:forEach>
@@ -133,8 +113,7 @@ desired effect
 							<div class="box-footer clearfix">
 								<div class="row">
                  					<div class="col-md-4">
-								<button type="button" class="btn btn-primary" id="btn_check_modify1" role="button">체크상품수정1</button>
-								<button type="button" class="btn btn-primary" id="btn_check_modify2" role="button">체크상품수정2</button>
+								<button type="button" class="btn btn-primary" id="btn_check_modify1" role="button">회원수정</button>
 										<!-- 1) 페이지번호 클릭할 때 사용 [이전] 1 2 3 4 5 [다음] -->
 										<!-- 2) 목록에서 상품이미지 또는 상품명을 클릭할 때 사용	-->
 										<form id="actionForm" action="" method="get">
@@ -173,7 +152,7 @@ desired effect
 										</nav>
 									</div>
 									<div>
-                    <div class="col-md-2 text-right" ><button type="button" class="btn btn-primary" id="btn_product_insert" role="button">상품등록</button></div>
+                    <div class="col-md-2 text-right" ><button type="button" class="btn btn-primary" id="btn_product_insert" role="button">회원등록</button></div>
 									</div>
 							</div>
 						</div>
@@ -313,53 +292,8 @@ desired effect
       });
     });
 
-    // 체크박스수정1 버튼 클릭
-    $("#btn_check_modify1").on("click", function() {
-      // 체크박스 클릭 확인
-      if($("input[name='check']:checked").length == 0) {
-        alert("수정할 상품을 체크하세요.");
-        return;
-      }
 
-      // 배열문법
-      let pro_num_arr = []; // 체크된 상품코드 배열
-      let pro_price_arr = []; // 체크된 상품가격 배열
-      let pro_buy_arr = []; // 체크된 상품진열 배열
-
-      // 데이터행에서 체크된 체크박스 선택자
-      $("input[name='check']:checked").each(function() {
-        pro_num_arr.push($(this).val());
-        pro_price_arr.push($(this).parent().parent().find("input[name='pro_price']").val());
-        pro_buy_arr.push($(this).parent().parent().find("select[name='pro_buy']").val());
-      });
-
-      console.log("상품코드", pro_num_arr);
-      console.log("상품가격", pro_price_arr);
-      console.log("상품진열", pro_buy_arr);
-
-      
-      $.ajax({
-        url: '/admin/product/pro_checked_modify1',
-        type: 'post',
-        data: {pro_num_arr: pro_num_arr, pro_price_arr: pro_price_arr, pro_buy_arr: pro_buy_arr},
-        dataType: 'text',
-        success: function(result) {
-          if(result == "success") {
-            alert("체크상품이 수정되었습니다.");
-
-            // db에서 다시 불러오는 작업. 
-            // 1) location.href = "/admin/product/pro_list";
-            // 2) 현재 리스트 상태로 불러오는 의미
-
-            // actionForm.attr("method", "get");
-            // actionForm.attr("action", "/admin/product/pro_list");
-            // actionForm.submit();
-          }
-        }
-      });
-    });
-
-    // 체크박스수정2 버튼 클릭
+    // 수정 버튼 클릭
     $("#btn_check_modify2").on("click", function() {
       // 체크박스 클릭 확인
       if($("input[name='check']:checked").length == 0) {
@@ -392,13 +326,6 @@ desired effect
           if(result == "success") {
             alert("체크상품이 수정되었습니다.");
 
-            // db에서 다시 불러오는 작업. 
-            // 1) location.href = "/admin/product/pro_list";
-            // 2) 현재 리스트 상태로 불러오는 의미
-
-            // actionForm.attr("method", "get");
-            // actionForm.attr("action", "/admin/product/pro_list");
-            // actionForm.submit();
           }
         }
       });

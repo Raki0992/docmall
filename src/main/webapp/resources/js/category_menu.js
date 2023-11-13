@@ -18,7 +18,7 @@ $(document).ready(function() {
 
       for(let i=0; i<category.length; i++) {
         str += '<li class="nav-item">';
-        str += '<a class="nav-link active" href="#" data-cg_code="' + category[i].cg_code +'">' + category[i].cg_name +'</a>';
+        str += '<a class="nav-link active" href="#" data-cg_code="' + category[i].cg_code +'" data-cg_name="' + category[i].cg_name +'">' + category[i].cg_name +'</a>';
         str += '</li>';
       }
 
@@ -34,7 +34,14 @@ $(document).ready(function() {
   // 2차 카테고리 선택. on
     // [중요] $("정적태그 참조선택자").on("이벤트명", "동적태그를 참조선택자", function(){}); 
     // 1차(category_menu.jsp) 2차(category_menu.js)  id달아주기
-  $("#category_menu").on("click", "#second_category", function(){
+  $("#category_menu").on("click", "ul#second_category li a", function(e){
     console.log("2차 카테고리 작업");
+
+    let cg_code = $(this).data("cg_code");
+    let cg_name = $(this).data("cg_name");
+    // https://travelpark.tistory.com/30
+    // 한글이나 특수문자를 서버에 보낼때 오류가 나는 경우
+    // 인코딩 과정을 통하여 보내서 처리할 수가 있다.
+    location.href = `/user/product/pro_list?cg_code=${cg_code}&cg_name=${cg_name}`;
   });
 });
