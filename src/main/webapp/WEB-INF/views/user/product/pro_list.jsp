@@ -70,7 +70,7 @@
               <p class="card-text">상품이름</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" name="btn_cart_add" class="btn btn-sm btn-outline-secondary">Cart</button>
+                  <button type="button" name="btn_cart_add" data-pro_num="${productVO.pro_num}" class="btn btn-sm btn-outline-secondary">Cart</button>
                   <button type="button" name="btn_buy"   class="btn btn-sm btn-outline-secondary">Buy</button>
                 </div>
                 <small class="text-muted">
@@ -149,6 +149,22 @@ $(".movepage").on("click", function(e) {
   // 장바구니 추가
   $("button[name='btn_cart_add']").on("click", function() {
     console.log("장바구니");
+
+    $.ajax({
+      url: '/user/cart/cart_add',
+      type: 'post',
+      data: {pro_num : $(this).data("pro_num"), cart_amount : 1},
+      dataType: 'text',
+      success: function(result) {
+        if(result == "success") {
+          alert("장바구니에 추가됨");
+          if(confirm("장바구니로 이동하시겠습니까?")) {
+            location.href = "/user/cart/cart_list";
+          }
+        }
+      }
+    });
+
   });
 
 });
