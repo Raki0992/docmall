@@ -10,4 +10,8 @@ public interface AdmemberMapper {
 	List<MemberVO> member_list(Criteria cri);
 	
 	void member_delete(String mbsp_id);
+	
+	MemberVO member_edit(String mbsp_id);
+	
+	void member_edit_ok(MemberVO vo);
 }

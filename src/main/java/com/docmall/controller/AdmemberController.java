@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.docmall.domain.MemberVO;
 import com.docmall.dto.Criteria;
@@ -51,4 +53,27 @@ public class AdmemberController {
 			
 			return "redirect:/admin/member_list" + cri.getListLink();
 		}
+		
+		// 상품수정 페이지
+		@GetMapping("/member_edit")
+		public void member_edit(@ModelAttribute("cri") Criteria cri, String mbsp_id, Model model) throws Exception {
+			
+			MemberVO memberVO = admemberService.member_edit(mbsp_id);
+			
+			model.addAttribute("MemberVO", memberVO);
+			
+		}
+		
+		// 회원수정
+		@PostMapping("/member_edit")
+		public String member_edit(Criteria cri, MemberVO vo, RedirectAttributes rttr) throws Exception {
+			
+			admemberService.member_edit(vo);
+			
+			return "redirect:/admin/member/member_edit";
+		}
+		
+		
+		// 회원등록
+		
 }

@@ -88,9 +88,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<th style="width: 10%">아이디</th>
 											<th style="width: 10%">이름</th>
 											<th style="width: 20%">이메일</th>
-											<th style="width: 30%">주소</th>
+											<th style="width: 27%">주소</th>
 											<th style="width: 15%">전화번호</th>
 											<th style="width: 10%">마지막 접속일자</th>
+											<th style="width: 3%">수정</th>
 											<th style="width: 3%">탈퇴</th>
 										</tr>
 										<!-- 내용 forEach안에서 id사용불가 (중복) -->
@@ -102,8 +103,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<td>${memberVO.mbsp_addr}</td>
 											<td>${memberVO.mbsp_phone}</td>
 											<td><fmt:formatDate value="${memberVO.mbsp_lastlogin }" pattern="yyyy-MM-dd" /></td>
-					  
-											<td><button class="btn btn-danger btn_pro_del">삭제</button></td>
+											<td><button class="btn btn-warning" name="btn_mem_edit">수정</button></td>
+											<td><button class="btn btn-danger btn_mem_del">삭제</button></td>
 										</tr>
 										</c:forEach>
 									</tbody>
@@ -113,7 +114,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="box-footer clearfix">
 								<div class="row">
                  					<div class="col-md-4">
-								<button type="button" class="btn btn-primary" id="btn_check_modify1" role="button">회원수정</button>
 										<!-- 1) 페이지번호 클릭할 때 사용 [이전] 1 2 3 4 5 [다음] -->
 										<!-- 2) 목록에서 상품이미지 또는 상품명을 클릭할 때 사용	-->
 										<form id="actionForm" action="" method="get">
@@ -273,7 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
 
     // 회원 삭제
-    $(".btn_pro_del").on("click", function() {
+    $(".btn_mem_del").on("click", function() {
       
       let mbsp_id = $(this).parent().parent().find(".mbsp_id").text();
 
@@ -285,7 +285,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
       actionForm.attr("method", "post");
       actionForm.attr("action", "/admin/member/member_delete");
       actionForm.submit();
+    });
 
+      // 회원 수정페이지로 이동
+      $("button[name='btn_mem_edit']").on("click", function() {
+
+      let mbsp_id = $(this).parent().parent().find(".mbsp_id").text();
+
+      console.log(mbsp_id);
+
+      actionForm.append('<input type="hidden" name="mbsp_id" id="mbsp_id" value="' + mbsp_id + '" />');
+
+      actionForm.attr("method", "get");
+      actionForm.attr("action","/admin/member/member_edit");
+      actionForm.submit();  // 확인하기
     });
 
   }); // ready안에 입력

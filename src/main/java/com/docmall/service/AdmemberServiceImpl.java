@@ -24,6 +24,20 @@ public class AdmemberServiceImpl implements AdmemberService {
 	public void member_delete(String mbsp_id) {
 		admemberMapper.member_delete(mbsp_id);
 	}
+
+	@Override
+	public MemberVO member_edit(String mbsp_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void member_edit(MemberVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	
 
 	

@@ -18,4 +18,26 @@
 			MBSP_ID = #{mbsp_id}
 	</delete>
 	
+	<select id="member_edit" resultType="com.docmall.domain.MemberVO" parameterType="String">
+		SELECT
+			mbsp_id, mbsp_name, mbsp_email, mbsp_addr, mbsp_phone, mbsp_lastlogin
+		FROM
+			MBSP_TBL
+		WHERE
+			MBSP_ID = #{mbsp_id}
+	</select>
+	
+	<update id="member_edit_ok" parameterType="com.docmall.domain.MemberVO">
+		UPDATE
+			MBSP_TBL
+		SET
+			mbsp_id	= #{mbsp_id},
+			mbsp_name = #{mbsp_name}, 
+			mbsp_email = #{mbsp_email}, 
+			mbsp_addr = #{mbsp_addr}, 
+			mbsp_phone = #{mbsp_phone}, 
+			mbsp_lastlogin = #{mbsp_lastlogin},
+		WHERE
+			mbsp_id	= #{mbsp_id}
+	</update>
 	</mapper>
