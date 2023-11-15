@@ -44,7 +44,7 @@
           </a>
           
           <ul class="treeview-menu">
-            <li><a href="/admin/member_list">회원정보</a></li>
+            <li><a href="/admin/member/member_list">회원정보</a></li>
           </ul>
         </li>
         

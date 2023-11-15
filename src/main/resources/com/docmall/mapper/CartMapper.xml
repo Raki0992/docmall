@@ -21,7 +21,7 @@
 		values(seq_cart_code.nextval,#{pro_num},#{mbsp_id},#{cart_amount})
 	</insert>
 	
-	<select id="cart_list" resultType="com.docmall.dto.CartDTOList">
+	<select id="cart_list" resultType="com.docmall.dto.CartDTOList">	<!-- select는 resultType -->
 		SELECT 
 			C.CART_CODE, C.PRO_NUM, C.CART_AMOUNT, P.PRO_NAME, P.PRO_PRICE, P.PRO_IMG, P.PRO_DISCOUNT, P.PRO_UP_FOLDER 
 		FROM 
@@ -42,6 +42,12 @@
 			cart_code = #{cart_code}
 	</update>
 	
+	<delete id="cart_list_del" parameterType="Long">
+		DELETE FROM
+			cart_tbl
+		WHERE
+			cart_code = #{cart_code}
+	</delete>
 	
 	
 	

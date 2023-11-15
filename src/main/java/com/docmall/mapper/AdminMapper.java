@@ -14,5 +14,5 @@ public interface AdminMapper {
 	
 	void member_list(MemberVO vo);
 	
-	List<MemberVO> member_list(Criteria cri);
+
 }

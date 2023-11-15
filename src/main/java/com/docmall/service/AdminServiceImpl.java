@@ -27,11 +27,7 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.loginTimeUpdate(admin_id);
 	}
 
-	@Override
-	public List<MemberVO> member_list(Criteria cri) {
-		return adminMapper.member_list(cri);
-	}
-	
+
 //	public AdminServiceImpl(AdminMapper adminMapper) {
 //		this.adminMapper = adminMapper;
 //	}

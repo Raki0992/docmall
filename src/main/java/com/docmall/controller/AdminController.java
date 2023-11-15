@@ -16,6 +16,8 @@ import com.docmall.domain.AdminVO;
 import com.docmall.domain.MemberVO;
 import com.docmall.dto.AdminLoginDTO;
 import com.docmall.dto.Criteria;
+import com.docmall.dto.PageDTO;
+import com.docmall.service.AdProductService;
 import com.docmall.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,7 @@ import lombok.extern.log4j.Log4j;
 public class AdminController {
 
 	private final AdminService adminService;
-	
+
 	private final PasswordEncoder passwordEncoder; 
 	
 	// 관리자 로그인 폼 페이지
@@ -92,17 +94,7 @@ public class AdminController {
 		
 	}
 	
-	// 회원관리 페이지
-	@GetMapping("/member_list")
-	public void member_list(MemberVO vo, Criteria cri, Model model) throws Exception {
-		log.info("회원관리");
-		
-		List<MemberVO> member_list = adminService.member_list(cri);
-		
-		model.addAttribute("member_list", member_list);
-		
-		
-	}
+	
 	
 	
 	

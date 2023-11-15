@@ -103,9 +103,26 @@ public class CartController {
 		return entity;
 	}
 	
+	// 장바구니 목록에서 개별삭제(ajax)
+	@PostMapping("/cart_list_del")
+	public ResponseEntity<String> cart_list_del(Long cart_code) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		cartService.cart_list_del(cart_code);
+		
+		entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		
+		return entity;
+	}
 	
-	
-	
+	// 장바구니 목록에서 개별삭제(nonajax)
+	@GetMapping("/cart_list_del")
+	public String cart_list_del2(Long cart_code) throws Exception {
+		
+		cartService.cart_list_del(cart_code);
+		
+		return "redirect:/user/cart/cart_list";
+	}
 }
 
 

@@ -67,7 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 							<div class="box-body">
                 <div>
-                  <form action="/admin/product/pro_list" method="get">	<!-- 검색은 get방식-->
+                  <form action="/admin/member/member_list" method="get">	<!-- 검색은 get방식-->
                     <select name="type">	<!-- 주소에 맞게 name 입력 -->
                       <option selected>검색종류선택</option>
                       <option value="N" ${pageMaker.cri.type == 'N'? 'selected': ''}>이름</option>
@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<!-- 내용 forEach안에서 id사용불가 (중복) -->
 										<c:forEach items="${member_list }" var="memberVO"> 
 										<tr>
-											<td>${memberVO.mbsp_id}</td>
+											<td class="mbsp_id">${memberVO.mbsp_id}</td>
 											<td>${memberVO.mbsp_name}</td>
 											<td>${memberVO.mbsp_email}</td>
 											<td>${memberVO.mbsp_addr}</td>
@@ -263,110 +263,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     let actionForm = $("#actionForm");
 
-    // [이전] 1 2 3 4 5 [다음] 클릭 이벤트 설정. <a>태그
     $(".movepage").on("click", function(e) {
       e.preventDefault(); // a태그의 링크기능을 제거. href속성에 페이지번호를 숨겨둠.
 
-      actionForm.attr("action","/admin/product/pro_list");
+      actionForm.attr("action","/admin/member/member_list");
       actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-
+      
       actionForm.submit();
     });
 
-    // 목록에서 제목행 체크박스 선택
-    let isCheck = true;
-    $("#checkAll").on("click", function() {
-      $("input[name='check']").prop("checked", this.checked);
-      isCheck = this.checked;
-    });
-
-    // 목록에서 데이터행 체크박스 선택
-    $("input[name='check']").on("click", function() {
-      // 제목행 체크상태 변경
-      $("#checkAll").prop("checked", this.checked);
-      // 데이터 행의 체크박스 상태를 확인해서 제목행 체크상태 변경
-      $("input[name='check']").each(function() {
-        if(!$(this).is(":checked")) {
-          $("#checkAll").prop("checked", false);
-        }
-      });
-    });
-
-
-    // 수정 버튼 클릭
-    $("#btn_check_modify2").on("click", function() {
-      // 체크박스 클릭 확인
-      if($("input[name='check']:checked").length == 0) {
-        alert("수정할 상품을 체크하세요.");
-        return;
-      }
-
-      // 배열문법
-      let pro_num_arr = []; // 체크된 상품코드 배열
-      let pro_price_arr = []; // 체크된 상품가격 배열
-      let pro_buy_arr = []; // 체크된 상품진열 배열
-
-      // 데이터행에서 체크된 체크박스 선택자
-      $("input[name='check']:checked").each(function() {
-        pro_num_arr.push($(this).val());
-        pro_price_arr.push($(this).parent().parent().find("input[name='pro_price']").val());
-        pro_buy_arr.push($(this).parent().parent().find("select[name='pro_buy']").val());
-      });
-
-      console.log("상품코드", pro_num_arr);
-      console.log("상품가격", pro_price_arr);
-      console.log("상품진열", pro_buy_arr);
-      
-      $.ajax({
-        url: '/admin/product/pro_checked_modify2',
-        type: 'post',
-        data: {pro_num_arr: pro_num_arr, pro_price_arr: pro_price_arr, pro_buy_arr: pro_buy_arr},
-        dataType: 'text',
-        success: function(result) {
-          if(result == "success") {
-            alert("체크상품이 수정되었습니다.");
-
-          }
-        }
-      });
-    });
-
-    // 상품등록 btn_product_insert
-    $("#btn_product_insert").on("click", function() {
-      location.href ="/admin/product/pro_insert";
-    });
-
-    // 상품수정 btn_edit  css선택자
-    $("button[name='btn_pro_edit']").on("click", function() {
-
-      // 수정 상품코드
-      let pro_num = $(this).parent().parent().find("input[name='check']").val();
-
-      console.log(pro_num);
-
-      // <input type="hidden" name="pro_num" id="pro_num" value="24" />
-      actionForm.append('<input type="hidden" name="pro_num" id="pro_num" value="' + pro_num + '" />');
-
-      actionForm.attr("method", "get");
-      actionForm.attr("action","/admin/product/pro_edit");
-      actionForm.submit();  // 확인하기
-    });
-
-    // 상품삭제
+    // 회원 삭제
     $(".btn_pro_del").on("click", function() {
       
-      let pro_name = $(this).parent().parent().find(".pro_name").text();    // .text() : 입력양식태그가 아닌 일반양식태그의 값을 변경하거나 읽을 때 사용
-      if(!confirm(pro_name + " 상품을 삭제하시겠습니까?")) return;
+      let mbsp_id = $(this).parent().parent().find(".mbsp_id").text();
 
-      let pro_num = $(this).parent().parent().find("input[name='check']").val();  // .val() : input, select, textarea 태그의 값을 변경하거나 읽을 때 사용
-      console.log("상품코드", pro_num);
-
-      actionForm.append('<input type="hidden" name="pro_num" id="pro_num" value="' + pro_num + '" />');
-
-      actionForm.attr("method", "post");
-      actionForm.attr("action","/admin/product/pro_delete");
-      actionForm.submit(); 
+      if(!confirm("삭제하시겠습니까?")) return;
       
+      actionForm.append('<input type="hidden" name="mbsp_id" id="mbsp_id" value="' + mbsp_id + '" />');
+      
+      console.log(mbsp_id);
+      actionForm.attr("method", "post");
+      actionForm.attr("action", "/admin/member/member_delete");
+      actionForm.submit();
+
     });
 
   }); // ready안에 입력
