@@ -86,7 +86,7 @@ desired effect
                 </form>
 							</div>
 
-							<!-- 절대경로 / board/register -->
+
 							<form role="form" method="post" action="/admin/product/pro_edit" enctype="multipart/form-data">
 								<div class="box-body">
 									<div class="form-group row">

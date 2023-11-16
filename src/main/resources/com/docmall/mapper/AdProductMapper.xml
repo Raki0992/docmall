@@ -29,7 +29,6 @@
 				</trim>
 			</foreach>
 		</trim>
-	
 	</sql>
 	
 	<!-- CDATA 섹션(xml에 문법사용가능하게 함) -->

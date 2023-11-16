@@ -152,7 +152,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</nav>
 									</div>
 									<div>
-                    <div class="col-md-2 text-right" ><button type="button" class="btn btn-primary" id="btn_product_insert" role="button">회원등록</button></div>
+                    <div class="col-md-2 text-right" ><button type="button" class="btn btn-primary" id="btn_member_insert" role="button">회원등록</button></div>
 									</div>
 							</div>
 						</div>
@@ -293,12 +293,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let mbsp_id = $(this).parent().parent().find(".mbsp_id").text();
 
       console.log(mbsp_id);
-
+      actionForm.find("#mbsp_id").remove();  
       actionForm.append('<input type="hidden" name="mbsp_id" id="mbsp_id" value="' + mbsp_id + '" />');
 
       actionForm.attr("method", "get");
       actionForm.attr("action","/admin/member/member_edit");
       actionForm.submit();  // 확인하기
+    });
+
+    // 회원 등록페이지로 이동
+    $("#btn_member_insert").on("click", function() {
+      location.href ="/admin/member/member_insert";
     });
 
   }); // ready안에 입력

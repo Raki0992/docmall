@@ -101,28 +101,28 @@
       <div class="form-group row">
         <label for="mbsp_id" class="col-2">주문자</label>
           <div class="col-10">
-        <input type="text" class="form-control" name = "mbsp_id" id="mbsp_id" placeholder="아이디 입력...">
+        <input type="text" class="form-control" id="b_mbsp_id" value="${loginStatus.mbsp_id }" readonly>
           </div>
       </div>
 
       <div class="form-group row">
         <label for="mbsp_name" class="col-2">이름</label>
           <div class="col-10">
-        <input type="text" class="form-control" name ="mbsp_name" id="mbsp_name" placeholder="이름 입력...">
+        <input type="text" class="form-control" id="b_mbsp_name" value="${loginStatus.mbsp_name }" readonly>
           </div>
       </div>
 
       <div class="form-group row">
         <label for="mbsp_email" class="col-2">전자우편</label>
           <div class="col-10">
-        <input type="email" class="form-control" name = "mbsp_email" id="mbsp_email" placeholder="전자우편입력...">
+        <input type="email" class="form-control" id="b_mbsp_email" value="${loginStatus.mbsp_email }" readonly>
           </div>
       </div>
 
       <div class="form-group row">
         <label for="sample2_postcode" class="col-2">우편번호</label>
           <div class="col-8">
-        <input type="email" class="form-control" name = "mbsp_zipcode"  placeholder="우편번호입력...">
+        <input type="email" class="form-control" id="b_mbsp_zipcode" value="${loginStatus.mbsp_zipcode }" readonly>
           </div>
 
       </div>
@@ -130,44 +130,38 @@
       <div class="form-group row">
         <label for="sample2_address" class="col-2">기본주소</label>
           <div class="col-10">
-        <input type="text" class="form-control" name = "mbsp_addr"  placeholder="기본주소입력...">
+        <input type="text" class="form-control" id="b_mbsp_addr" value="${loginStatus.mbsp_addr }" readonly>
           </div>
       </div>
 
     <div class="form-group row">
         <label for="sample2_detailAddress" class="col-2">상세주소</label>
           <div class="col-10">
-        <input type="text" class="form-control" name = "mbsp_deaddr"  placeholder="상세주소입력...">
+        <input type="text" class="form-control" id="b_mbsp_deaddr" value="${loginStatus.mbsp_deaddr }" readonly>
           </div>
       </div>
       
       <div class="form-group row">
         <label for="mbsp_phone" class="col-2">전화번호</label>
           <div class="col-10">
-        <input type="text" class="form-control" oninput="oninputPhone(this)" maxlength="14" name = "mbsp_phone" id="mbsp_phone" placeholder="전화번호입력...">
+        <input type="text" class="form-control" oninput="oninputPhone(this)" maxlength="14" id="b_mbsp_phone" value="${loginStatus.mbsp_phone }" readonly>
           </div>
       </div>
       
+  </fieldset>
+  </form>
     </div>
 
-  </fieldset>
   <hr>
   <fieldset class="form-group border p-3">
     <legend class="w-auto px-2">받으시는 분</legend>
     <div class="form-group row">
-      <label for="mbsp_id" class="col-2">수령인</label> 
+      <label for="mbsp_id" class="col-2">수령인(이름)</label> 
         <div class="col-8">
-      <input type="text" class="form-control" name = "mbsp_id" id="mbsp_id" placeholder="아이디 입력...">
+      <input type="text" class="form-control" name = "mbsp_name" id="mbsp_name" placeholder="아이디 입력...">
         </div>
         <div class="col-2">
-          <input type="checkbox"> 주문자와 동일
-        </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="mbsp_name" class="col-2">이름</label>
-        <div class="col-10">
-      <input type="text" class="form-control" name ="mbsp_name" id="mbsp_name" placeholder="이름 입력...">
+          <input type="checkbox" id="same"> 주문자와 동일
         </div>
     </div>
 
@@ -212,8 +206,8 @@
     <div class="form-group row">
       <label for="mbsp_phone" class="col-2">결제방법</label>
         <div class="col-10">
-          <input type="radio" name = "mbsp_phone" id="mbsp_phone">무통장 입금<br>
-          <input type="radio" name = "mbsp_phone" id="mbsp_phone">카카오페이<br>
+          <input type="radio" name = "mbsp_phone" id="mbsp_phone">무통장 입금
+          <input type="radio" name = "mbsp_phone" id="mbsp_phone"><img src="/image/payment.png">
         </div>
       </div>
     </fieldset>
@@ -339,7 +333,23 @@
 
 <script>
 $(document).ready(function() {
-
+  // 주문자와 동일
+  $("#same").on("click", function(){
+    if($("#same").is(":checked")) {
+      // console.log("체크");
+      $("#mbsp_name").val($("#b_mbsp_name").val());
+      $("#sample2_postcode").val($("#b_mbsp_zipcode").val());
+      $("#sample2_address").val($("#b_mbsp_addr").val());
+      $("#sample2_detailAddress").val($("#b_mbsp_deaddr").val());
+      $("#mbsp_phone").val($("#b_mbsp_phone").val());
+    }else {
+      $("#mbsp_name").val("");
+      $("#sample2_postcode").val("");
+      $("#sample2_address").val("");
+      $("#sample2_detailAddress").val("");
+      $("#mbsp_phone").val("");
+    }
+  });
 }); 
 
 

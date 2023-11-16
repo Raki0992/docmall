@@ -40,4 +40,12 @@
 		WHERE
 			mbsp_id	= #{mbsp_id}
 	</update>
+	
+	<insert id="member_insert" parameterType="com.docmall.domain.SimpleMemberVO">
+		INSERT INTO
+			SIMPLEMEMBER_TBL(SIMP_ID,SIMP_NAME,SIMP_EMAIL,SIMP_ADDR,SIMP_PHONE)
+		VALUES(#{SIMP_ID},#{SIMP_NAME},#{SIMP_EMAIL},#{SIMP_ADDR},#{SIMP_PHONE})
+	</insert>
+	
+	
 	</mapper>

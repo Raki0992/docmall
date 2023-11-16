@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.docmall.domain.MemberVO;
+import com.docmall.domain.SimpleMemberVO;
 import com.docmall.dto.Criteria;
 import com.docmall.mapper.AdmemberMapper;
 
@@ -27,15 +28,24 @@ public class AdmemberServiceImpl implements AdmemberService {
 
 	@Override
 	public MemberVO member_edit(String mbsp_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return admemberMapper.member_edit(mbsp_id);
 	}
 
 	@Override
 	public void member_edit(MemberVO vo) {
-		// TODO Auto-generated method stub
-		
+		admemberMapper.member_edit_ok(vo); 
 	}
+
+	@Override
+	public void member_insert(SimpleMemberVO vo) {
+		admemberMapper.member_insert(vo); 
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return admemberMapper.getTotalCount(cri);
+	}
+
 
 	
 	

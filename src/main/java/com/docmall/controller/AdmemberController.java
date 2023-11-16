@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.docmall.domain.MemberVO;
+import com.docmall.domain.SimpleMemberVO;
 import com.docmall.dto.Criteria;
 import com.docmall.dto.PageDTO;
 import com.docmall.service.AdProductService;
@@ -58,7 +59,7 @@ public class AdmemberController {
 		@GetMapping("/member_edit")
 		public void member_edit(@ModelAttribute("cri") Criteria cri, String mbsp_id, Model model) throws Exception {
 			
-			MemberVO memberVO = admemberService.member_edit(mbsp_id);
+			MemberVO memberVO = admemberService.member_edit(mbsp_id);	// 선택한 상품 정보
 			
 			model.addAttribute("MemberVO", memberVO);
 			
@@ -74,6 +75,20 @@ public class AdmemberController {
 		}
 		
 		
-		// 회원등록
+		// 회원등록 폼
+		@GetMapping("member_insert")
+		public void member_insert() {
+			
+		}
 		
+		@PostMapping("/member_insert")
+		public String member_insert(SimpleMemberVO vo, RedirectAttributes rttr) throws Exception {
+			
+			log.info("회원정보" + vo);
+			
+			admemberService.member_insert(vo);
+			
+			
+		return "redirect:/admin/member/member_list";
+		}
 }

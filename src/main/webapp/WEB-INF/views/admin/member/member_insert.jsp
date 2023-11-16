@@ -66,7 +66,7 @@ desired effect
       <div class="text-center">
         <div class="box box-primary">
           <div class="box-header with-border">
-          <h3 class="box-title">회원수정</h3>
+          <h3 class="box-title">회원등록</h3>
           </div>
           
           
@@ -75,78 +75,54 @@ desired effect
 					<div class="col-md-12">
 						<div class="box box-primary">
 							<div class="box-header with-border">
+								<h3 class="box-title mt-5">Register</h3>
 								<!--  mt-5 : margin top 위쪽 여백 -->
-								<h3 class="box-title mt-5">Member Edit</h3>
-                <!-- 페이지 Criteria 사용-->
-                <form id="actionForm" action="" method="get">
-                 	<input type="hidden" name="pageNum" id="pageNum" value="${cri.pageNum}" />
-		            <input type="hidden" name="amount" id="amount" value="${cri.amount}" />
-		            <input type="hidden" name="type" id="type" value="${cri.type}" />
-		            <input type="hidden" name="keyword" id="keyword" value="${cri.keyword}" />
-                </form>
 							</div>
 
-							<form role="form" method="post" action="/admin/member/member_edit">
+							<form role="form" method="post" action="/admin/member/member_insert">
 								<div class="box-body">
-									<div class="form-group row">
-                    <div class="col-md-3">
-                    	  <input type="hidden" name="pageNum" id="pageNum" value="${cri.pageNum}" />
-		                  <input type="hidden" name="amount" id="amount" value="${cri.amount}" />
-		                  <input type="hidden" name="type" id="type" value="${cri.type}" />
-		                  <input type="hidden" name="keyword" id="keyword" value="${cri.keyword}" />
-                    </div>
-									</div>
 
                   <div class="form-group row">
-										<label for="title" class="col-md-2 col-form-label">아이디</label>
+										<label for="title" class="col-md-2 col-form-label">아이디</label> 
                     <div class="col-md-4">
-                      <input type="text" class="form-control" id="mbsp_id" name="mbsp_id"	value="${MemberVO.mbsp_id}">
+                      <input type="text" class="form-control" id="SIMP_ID" name="SIMP_ID"	placeholder="아이디 입력...">
                     </div>
-
                     <label for="title" class="col-md-2 col-form-label">이름</label> 
                     <div class="col-md-4">
-                      <input type="text" class="form-control" id="mbsp_name" name="mbsp_name"	value="${MemberVO.mbsp_name }">
+                      <input type="text" class="form-control" id="SIMP_NAME" name="SIMP_NAME"	placeholder="이름 입력...">
                     </div>
                   </div>
 
                   <div class="form-group row">
 										<label for="title" class="col-md-2 col-form-label">이메일</label> 
                     <div class="col-md-4">
-                      <input type="text" class="form-control" id="mbsp_email" name="mbsp_email"	value="${MemberVO.mbsp_email }">
+                      <input type="text" class="form-control" id="SIMP_EMAIL" name="SIMP_EMAIL"	placeholder="이메일 입력...">
                     </div>
-
                     <label for="title" class="col-md-2 col-form-label">주소</label> 
                     <div class="col-md-4">
-                      <input type="text" class="form-control" id="mbsp_addr" name="mbsp_addr"	value="${MemberVO.mbsp_addr }">
-                    </div>
-
-                    <label for="title" class="col-md-2 col-form-label">전화번호</label> 
-                    <div class="col-md-4">
-                      <input type="text" class="form-control" id="mbsp_phone" name="mbsp_phone"	value="${MemberVO.mbsp_phone }">
+                      <input type="text" class="form-control" id="SIMP_ADDR" name="SIMP_ADDR"	placeholder="주소 입력...">
                     </div>
                   </div>
-
-
 
                   <div class="form-group row">
-										<label for="title" class="col-md-2 col-form-label">마지막 접속 일자</label> 
+										<label for="title" class="col-md-2 col-form-label">전화번호</label> 
                     <div class="col-md-4">
-                      <fmt:formatDate value="${memberVO.mbsp_lastlogin }" pattern="yyyy-MM-dd" />
+                      <input type="text" class="form-control" id="SIMP_PHONE" name="SIMP_PHONE"	placeholder="전화번호 입력...">
                     </div>
                   </div>
+
                   
-					</div>
+					    </div>
 				<div class="box-footer">
                   <div class="form-group">
                     <ul class="uploadedlist"></ul>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">회원수정</button>
+                    <button type="submit" class="btn btn-primary">회원등록</button>
                     <button type="reset" class="btn btn-primary">취소</button>
                   </div>
 				</div>
 			</form>
-
 				</div>
 					</div>
 						</div>

@@ -223,6 +223,7 @@ public class AdProductController {
 		ProductVO productVO = adProductService.pro_edit(pro_num);
 		// 역슬래시를 슬래시로 변환하는 작업 ( \ -> / )
 		productVO.setPro_up_folder(productVO.getPro_up_folder().replace("\\", "/"));	// Escape Sequence 특수문자
+		
 		model.addAttribute("ProductVO", productVO);
 		
 		// 1차 전체카테고리 GlobalControllerAdvice 클래스 Model참조.
