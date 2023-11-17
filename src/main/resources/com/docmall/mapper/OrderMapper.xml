@@ -3,5 +3,35 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="com.docmall.mapper.OrderMapper">
-	
+		<select id="getOrderSeq" resultType="int">
+			SELECT
+				SEQ_ORD_CODE.NEXTVAL 
+			FROM
+				DUAL
+		</select>
+		
+		<insert id="order_insert" parameterType="com.docmall.domain.OrderVO">
+			INSERT INTO
+				ORDER_TBL(ord_code, mbsp_id, ord_name, ord_zipcode, ord_addr_basic, ord_addr_detail, ord_tel, ord_price, ORD_REGDATE, ORD_STATUS, PAYMENT_STATUS)
+			VALUES
+				(#{ord_code},#{mbsp_id},#{ord_name},#{ord_zipcode},#{ord_addr_basic},#{ord_addr_detail},#{ord_tel},#{ord_price},SYSDATE,#{ord_status},#{payment_status})
+		</insert>
+		
+		<insert id="order_detail_insert" parameterType="map"> 
+			INSERT INTO 
+				ORDETAIL_TBL(ord_code, pro_num, dt_amount, dt_price)
+			SELECT 
+				#{ord_code}, c.pro_num, c.cart_amount, p.pro_price
+			FROM 
+				CART_TBL c inner join PRODUCT_TBL p on c.pro_num = p.pro_num
+			WHERE 
+				mbsp_id = #{mbsp_id}
+		</insert>
+		
+		<delete id="cart_del" parameterType="String">
+			DELETE FROM
+				CART_TBL
+			WHERE
+				mbsp_id = #{mbsp_id}
+		</delete>
 	</mapper>

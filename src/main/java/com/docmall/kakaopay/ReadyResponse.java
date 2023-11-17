@@ -2,7 +2,7 @@ package com.docmall.kakaopay;
 
 import lombok.Data;
 
-// 결제준비요청(1차)
+// 결제준비요청(1차) POST	https://kapi.kakao.com/v1/payment/ready	서비스 앱 어드민 키
 
 @Data
 public class ReadyResponse {

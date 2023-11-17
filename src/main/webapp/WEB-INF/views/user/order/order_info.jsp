@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!-- 날짜, 금액, 시간 등... -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- 문자함수열 기능 -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -70,7 +72,7 @@
       </tr>
     </thead>
     <tbody>
-      <c:forEach items="${order_info }" var="CartDTOList" >
+      <c:forEach items="${order_info }" var="CartDTOList" varStatus="" >
       <tr>
         <td><img width=70% height="70" src="/user/cart/imageDisplay?dateFolderName=${CartDTOList.pro_up_folder }&fileName=s_${CartDTOList.pro_img }"></td>
         <td>${CartDTOList.pro_name }</td>
@@ -84,7 +86,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="12" style="text-align: right;">
+        <td colspan="12" style="text-align: right;">상품 총 : <span id="cart_price_count">${fn:length(order_info)-1 }</span>
         주문금액 : <span id="cart_total_price">${order_price}</span>
         </td>
       </tr>
@@ -204,10 +206,10 @@
   <fieldset class="form-group border p-3">
     <legend class="w-auto px-2">결제방법 선택</legend>
     <div class="form-group row">
-      <label for="mbsp_phone" class="col-2">결제방법</label>
+      <label for="paymethod" class="col-2">결제방법</label>
         <div class="col-10">
-          <input type="radio" name = "mbsp_phone" id="mbsp_phone">무통장 입금
-          <input type="radio" name = "mbsp_phone" id="mbsp_phone"><img src="/image/payment.png">
+          <input type="radio" name = "paymethod" id="paymethod1" value="nobank">무통장 입금
+          <input type="radio" name = "paymethod" id="paymethod2" value="kakao"><img src="/image/payment.png">
         </div>
       </div>
     </fieldset>
@@ -338,8 +340,8 @@ $(document).ready(function() {
     if($("#same").is(":checked")) {
       // console.log("체크");
       $("#mbsp_name").val($("#b_mbsp_name").val());
-      $("#sample2_postcode").val($("#b_mbsp_zipcode").val());
-      $("#sample2_address").val($("#b_mbsp_addr").val());
+      $("#sample2_postcode").val($("#b_mbsp_zipcode").val()); 
+      $("#sample2_address").val($("#b_mbsp_addr").val()); 
       $("#sample2_detailAddress").val($("#b_mbsp_deaddr").val());
       $("#mbsp_phone").val($("#b_mbsp_phone").val());
     }else {
@@ -350,6 +352,50 @@ $(document).ready(function() {
       $("#mbsp_phone").val("");
     }
   });
+
+  // 주문하기(주문 및 결제)
+  $("#btn_order").on("click", function() {
+    
+    // 주문테이블, 주문상세테이블, 결제테이블 저장에 필요한 정보구성
+    // 카카오페이 결제에 필요한 정보구성
+    // 스프링에서 처리할 수 있는 부분
+    // input ,textarea 는 .val()  span 은 .text()
+
+    // console.log("paymethod",$("input[name='paymethod']:checked").val());
+    // console.log("ord_name",$("#mbsp_name").val());
+    // console.log("ord_zipcode",$("input[name='mbsp_zipcode']").val());
+    // console.log("ord_addr_basic",$("input[name='mbsp_addr']").val());
+    // console.log("ord_addr_detail",$("input[name='mbsp_deaddr']").val());
+    // console.log("ord_tel",$("#mbsp_phone").val());
+    // console.log("ord_price",$("#cart_total_price").text());
+    // console.log("totalamount",$("#cart_total_price").text());
+
+    $.ajax({
+      url: '/user/order/orderPay',
+      type: 'get',
+      data: {
+        paymethod : $("input[name='paymethod']:checked").val(),
+        ord_name: $("#mbsp_name").val(),
+        ord_zipcode: $("input[name='mbsp_zipcode']").val(),
+        ord_addr_basic: $("input[name='mbsp_addr']").val(),
+        ord_addr_detail: $("input[name='mbsp_deaddr']").val(),
+        ord_tel: $("#mbsp_phone").val(),
+        ord_price: 1000,  //$("#cart_total_price").text(),
+        totalprice: 1000, //$("#cart_total_price").text(),
+
+    },
+      dataType: 'json',
+      success: function(response) {
+        console.log("응답: " + response);
+
+        alert(response.next_redirect_pc_url);
+        location.href = response.next_redirect_pc_url;
+      }
+    });
+  });
+
+
+  
 }); 
 
 
