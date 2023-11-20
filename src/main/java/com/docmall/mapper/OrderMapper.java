@@ -2,8 +2,8 @@ package com.docmall.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.docmall.domain.OrderDetailVO;
 import com.docmall.domain.OrderVO;
+import com.docmall.domain.PaymentVO;
 
 public interface OrderMapper {
 
@@ -19,4 +19,7 @@ public interface OrderMapper {
 	
 	// 장바구니 테이블 삭제
 	void cart_del(String mbsp_id);
+	
+	// 결제테이블 저장
+	void payment_insert(PaymentVO vo);
 }

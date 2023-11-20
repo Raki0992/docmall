@@ -39,13 +39,6 @@
         }
       }
     </style>
-
-<script>
-  let msg = '${msg}';
-  if(msg == 'success') {
-    alert("회원정보가 수정됨");
-  }
-</script>
     
 
   </head>
@@ -54,14 +47,14 @@
 <%@include file="/WEB-INF/views/comm/header.jsp" %>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-<p>장바구니</p>
+  
 </div>
 
 <div class="container">
 
   <div class="box box-primary">
     <div class="box-body">
-      <h3>카카오 결제 및 주문처리가 되었습니다.</h3>
+      <h3>주문이 완료되었습니다.</h3>
     </div>
   </div>
 
