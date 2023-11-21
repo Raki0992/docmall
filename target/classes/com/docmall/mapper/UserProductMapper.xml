@@ -34,4 +34,12 @@
 		 	cg_code = #{cg_code}
 	</select>
 	
+	<select id="pro_detail" resultType="com.docmall.domain.ProductVO">
+		SELECT 
+			PRO_NUM, CG_CODE, PRO_NAME, PRO_PRICE, PRO_DISCOUNT, PRO_PUBLISHER, PRO_CONTENT, PRO_UP_FOLDER, PRO_IMG, PRO_AMOUNT, PRO_BUY, PRO_DATE, PRO_UPDATEDATE
+		FROM 
+			PRODUCT_TBL
+		WHERE
+		 	PRO_NUM = #{pro_num}
+	</select>
 	</mapper>

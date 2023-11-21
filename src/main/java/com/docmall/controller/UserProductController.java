@@ -42,7 +42,7 @@ public class UserProductController {
 	@GetMapping("/pro_list")
 	public String pro_list(Criteria cri,@ModelAttribute("cg_code") Integer cg_code,@ModelAttribute("cg_name") String cg_name, Model model) throws Exception {
 		
-		cri.setAmount(4);	// 10 -> 8 한페이지에 출력할 데이터 수 변경
+		cri.setAmount(4);	// 10 -> 4 한페이지에 출력할 데이터 수 변경
 		
 		List<ProductVO> pro_list = userProductService.pro_list(cg_code, cri);
 		
@@ -69,6 +69,19 @@ public class UserProductController {
 			return FileUtils.getFile(uploadPath + dateFolderName, fileName); 
 		}
 	
+		// 상품상세.	하단 상품후기포함
+		@GetMapping("/pro_detail")
+		public void pro_detail(Criteria cri, Integer pro_num, Model model, @ModelAttribute("cg_code") Integer cg_code, @ModelAttribute("cg_name") String cg_name) throws Exception {
+		
+			log.info("페이지 정보: " + cri);
+			log.info("상품 코드: " + pro_num);
+			
+			ProductVO productVO = userProductService.pro_detail(pro_num);
+			// 클라이언트에서 이미지 출력작업.	\ 역슬래쉬가 서버로 보낼때 문제가 되어서, /슬래시 사용하고자
+			productVO.setPro_up_folder(productVO.getPro_up_folder().replace("\\", "/")); 
+			// db연동작업
+			model.addAttribute("productVO", productVO);
+		}
 	
 	
 }

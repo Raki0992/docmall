@@ -193,6 +193,7 @@
         <div class="col-10">
           은행명 
           <select name="pay_nobank" id="pay_nobank">
+            <option value="">은행선택</option>
             <option value="123-123-1234">KEB하나은행</option>
             <option value="456-456-4567">국민은행</option>
             <option value="100-100-1000">신한은행</option>

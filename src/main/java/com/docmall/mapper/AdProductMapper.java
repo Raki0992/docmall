@@ -35,6 +35,8 @@ public interface AdProductMapper {
 	
 	// 상품삭제
 	void pro_delete(Integer pro_num);
+	
+	ProductVO pro_detail(Integer pro_num);
 }
 
 
