@@ -43,6 +43,12 @@
 		from 
             PRODUCT_TBL	
 		where 
+			pro_num = #{pro_num}
+			AND
+			rownum <= #{cri.pageNum} * #{cri.amount}
+		)
+		where
+			rn > (#{cri.pageNum} -1) * #{cri.amount} 
 		]]>
 		
 		<include refid="Criteria"></include>
