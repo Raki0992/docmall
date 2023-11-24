@@ -40,4 +40,11 @@
 			pro_num = #{pro_num}
 	</select>
 	
+	<delete id="delete" parameterType="Long">
+		delete from
+			REVIEW_TBL
+		where
+			rew_num = #{rew_num}
+	</delete>
+	
 	</mapper>

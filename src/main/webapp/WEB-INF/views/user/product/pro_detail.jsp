@@ -28,6 +28,7 @@
       <th scope="col">리뷰내용</th>
       <th scope="col">별평점</th>
       <th scope="col">날짜</th>
+      <th scope="col">비고</th>
     </tr>
   </thead>
   <tbody>
@@ -37,6 +38,7 @@
       <td>{{rew_content}}</td>
       <td>{{displayStar rew_score}}</td>
       <td>{{convertDate rew_regdate}}</td>
+      <td>{{authControlView mbsp_id rew_num}}</td>
     </tr>
     {{/each}}
   </tbody>
@@ -157,7 +159,11 @@
           </div>
 
           <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-8 text-center" id="review_paging">
+
+            </div>
+
+            <div class="col-md-4 text-right">
                 <button type="button" id="btn_review_write" class="btn btn-info">상품후기작성</button>
             </div>
           </div>
@@ -293,18 +299,51 @@ $(".movepage").on("click", function(e) {
         // review_list
 
         printReviewList(data.list, $("#review_list"), $("#reviewTemplate"))
+
+        // review_paging
+        printPaging(data.pageMaker, $("#review_paging"));
       });
     }
     
-    // 상품 후기 작업 함수
+    // 1) 상품 후기 작업 함수
     let printReviewList = function(reviewData, target, template) {
       let templateObj = Handlebars.compile(template.html());
       let reviewHtml = templateObj(reviewData);
 
       // 상품후기목록 위치를 참조하여 ,추가
-      $("#review_list").children().remove();
+      target.children().remove();
       target.append(reviewHtml);
     }
+
+    // 2) 페이징 기능 작업 함수
+    let printPaging = function(pageMaker, target) {
+
+      let pagingStr = '<nav id="navigation" aria-label="Page navigation example">';
+      pagingStr += '<ul class="pagination">';
+
+        // 이전표시여부
+      if(pageMaker.prev) {
+        pagingStr += '<li class="page-item"><a class="page-link" href="' + (pageMaker.startPage -1) + '">Previous</a></li>';
+      }
+
+      // 페이지번호 출력
+      for(let i=pageMaker.startPage; i<=pageMaker.endPage; i++) {
+        let className = pageMaker.cri.pageNum == i ? 'active' : '';
+        pagingStr += '<li class="page-item ' + className + '"><a class="page-link" href="' + i + '">' + i + '</a></li>';
+      }
+
+      // 다음표시여부
+      if(pageMaker.next) {
+        pagingStr += '<li class="page-item"><a class="page-link" href="' + (pageMaker.startPage +1) + '">Next</a></li>';
+      }
+      pagingStr += '</ul>';
+      pagingStr += '</nav>';
+
+      target.children().remove();
+      target.append(pagingStr);
+    }
+
+
 
     // 사용자정의 Helper (핸들바의 함수정의)
     // 상품후기 등록일 milisecond -> 자바스크립트의 Date객체로 변환
@@ -346,7 +385,64 @@ $(".movepage").on("click", function(e) {
     
     });
 
-    // 페이징 작업 함수
+    // 상품후기 수정/삭제버튼 표시
+    Handlebars.registerHelper("authControlView", function(mbsp_id, rew_num) {
+      let str = "";
+      let login_id = '${sessionScope.loginStatus.mbsp_id}';
+
+      // 로그인한 사용자와 상품후기 등록 사용자 일치 확인
+      if(login_id == mbsp_id) {
+        str += '<button type="button" name="btn_review_edit" class="btn btn-primary" data-rew_num="' + rew_num + '">수정</button>';
+        str += '<button type="button" name="btn_review_del" class="btn btn-danger" data-rew_num="' + rew_num + '">삭제</button>';
+        
+        // str += `<button type="button" class="btn btn-danger" data-rew_num="${rew_num}">danger</button>`
+        // js에서는 가능하지만 jsp에서는 안됨 ``백틱으로 연결해서 쓰는게 안됨.
+
+        // console.log(str)
+        // 출력내용이 태그일때 사용
+        return new Handlebars.SafeString(str);
+        // 태그가 아니면
+        // return str;
+      }
+
+    });
+
+    // 상품후기 삭제버튼
+    $("div#review_list").on("click", "button[name='btn_review_del']" ,function() {
+
+      if(!confirm("상품후기를 삭제하시겠습니까?")) return;
+
+      let rew_num = $(this).data("rew_num");
+
+      $.ajax({
+        url:'/user/review/delete/' + rew_num,
+        headers :{
+          "Content-Type" : "application/json", "X-HTTP-Method-Override" : "DELETE"
+        },
+        type : 'delete',
+        dataType : 'text',
+        success : function(result) {
+          if(result =='success') {
+            alert("상품평이 삭제되었습니다.")
+
+            url = "/user/review/list/" + ${productVO.pro_num } + "/" + reviewPage;
+            getReviewInfo(url);
+          }
+        }
+      });
+    });
+
+    // 페이지번호 클릭
+    $("div#review_paging").on("click", "nav#navigation ul a", function(e) {
+      e.preventDefault();   // 이벤트 제거
+      // console.log("페이지번호");
+
+      reviewPage = $(this).attr("href");  // 상품후기 페이지번호 클릭
+
+      url = "/user/review/list/" + ${productVO.pro_num } + "/" + reviewPage;
+
+      getReviewInfo(url); // 스프링에서 상품후기, 페이지번호 데이터 가져오는 함수
+    });
 
     // 상품 후기 저장
     $("#btn_review_save").on("click" ,function() {
@@ -391,6 +487,7 @@ $(".movepage").on("click", function(e) {
           }
         }
       });
+
     });
 });   // ready event end
 </script>
