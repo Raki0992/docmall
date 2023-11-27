@@ -18,7 +18,8 @@ public class PaymentVO {
     PAY_NOBANK_USER     VARCHAR2(50) NULL,      -- 무통장입금자명
     PAY_NOBANK          VARCHAR2(50) NULL,      -- 입금은행
     
-    PAY_MEMO            VARCHAR2(100) NULL      -- 메모
+    PAY_MEMO            VARCHAR2(100) NULL,      -- 메모
+    PAY_BANKACCOUNT		VARCHAR2(50) NULL
 );
  */
 	private Integer pay_code;	// 시퀀스

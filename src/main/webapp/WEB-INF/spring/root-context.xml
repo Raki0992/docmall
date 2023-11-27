@@ -30,7 +30,14 @@
       	<!-- 공통  (아이디 비번 확인)-->
 		<property name="username" value="spring"></property>
 		<property name="password" value="spring"></property>
-	</bean>	
+	</bean>
+	
+	<!-- 트랜잭션 설정구문 -->
+   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      <property name="dataSource" ref="dataSource"></property>
+   </bean>
+   
+   <tx:annotation-driven/>  	
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
@@ -40,6 +47,8 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
+	 
 	
 	<!-- service 패키지	bean생성해서 객체를Controller에  넘김 -->
 	<context:component-scan base-package="com.docmall.service" />
