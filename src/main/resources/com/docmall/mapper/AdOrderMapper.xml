@@ -52,4 +52,80 @@
 		
 		ord_code > 0
 	</select>
+	
+	<select id="OrderDetailInfo1" resultType="com.docmall.domain.OrderDetailInfoVO">
+		SELECT 
+			OT.ord_code, OT.PRO_NUM, OT.DT_AMOUNT, OT.DT_AMOUNT * P.PRO_PRICE as ORD_PRICE,
+	        P.PRO_NAME, P.PRO_PRICE, P.PRO_UP_FOLDER, P.PRO_IMG
+		FROM 
+			ORDETAIL_TBL OT, PRODUCT_TBL P
+		WHERE 
+			OT.PRO_NUM = P.PRO_NUM
+		AND 
+			OT.ORD_CODE = #{ord_code}
+	</select>
+	
+	<!-- resultType을 사용하지 않고, resultMap -->
+	<!-- 클래스안에 다른클래스가 필드로 사용이 된 경우 -->
+	<select id="OrderDetailInfo2" parameterType="Long" resultMap="orderDetailProductMap">
+		SELECT 
+			OT.ord_code, OT.PRO_NUM, OT.DT_AMOUNT, OT.DT_AMOUNT * P.PRO_PRICE as ORD_PRICE,
+	        P.PRO_NAME, P.PRO_PRICE, P.PRO_UP_FOLDER, P.PRO_IMG
+		FROM 
+			ORDETAIL_TBL OT, PRODUCT_TBL P
+		WHERE 
+			OT.PRO_NUM = P.PRO_NUM
+		AND 
+			OT.ORD_CODE = #{ord_code}
+	</select>
+	
+	<resultMap type="com.docmall.domain.OrderDetailProductVO" id="orderDetailProductMap">
+		<collection property="orderDetailVO" resultMap="orderDetailMap"></collection>
+		<collection property="productVO" resultMap="productMap"></collection>
+	</resultMap>
+	
+	<!-- resultMap : 테이블의 컬럼명과 클래스의 필드명이 다를경우 매핑하는 목적 -->
+	
+	<!-- orderDetailVO필드에서 필요한 정보	id는 맘대로 만들어서 resultMap에 주입-->
+	<resultMap type="com.docmall.domain.OrderDetailVO" id="orderDetailMap">
+		<id property="ord_code" column="ORD_CODE"/>	<!-- id는 primary key -->
+		<id property="pro_num" column="PRO_NUM"/>	<!-- id는 primary key -->
+		<result property="dt_amount" column="DT_AMOUNT"/>
+		<result property="dt_price" column="DT_PRICE"/>
+	</resultMap>
+	<resultMap type="com.docmall.domain.ProductVO" id="productMap">
+		<id property="pro_num" column="PRO_NUM"/>	<!-- id는 primary key -->
+		<result property="cg_code" column="CG_CODE"/>
+		<result property="pro_name" column="PRO_NAME"/>
+		<result property="pro_price" column="PRO_PRICE"/>
+		<result property="pro_discount" column="PRO_DISCOUNT"/>
+		<result property="pro_publisher" column="PRO_PUBLISHER"/>
+		<result property="pro_content" column="PRO_CONTENT"/>
+		<result property="pro_up_folder" column="PRO_UP_FOLDER"/>
+		<result property="pro_img" column="PRO_IMG"/>
+		<result property="pro_amount" column="PRO_AMOUNT"/>
+		<result property="pro_buy" column="PRO_BUY"/>
+		<result property="pro_date" column="PRO_DATE"/>
+		<result property="pro_updatedate" column="PRO_UPDATEDATE"/>
+	</resultMap>
+	
+	<!-- 테이블의 컬럼명과 클래스의 필드명이 다른 경우 -->
+	
+	<delete id="order_product_delete" parameterType="map">
+		DELETE FROM
+			ORDETAIL_TBL
+		WHERE
+			ORD_CODE = #{ord_code} AND PRO_NUM = #{pro_num}
+	</delete>
+	
 	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
