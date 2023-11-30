@@ -55,7 +55,12 @@ public class AdminController {
 			// 로그인 시간 업데이트
 			adminService.loginTimeUpdate(vo.getAdmin_id());
 			
-			url = "/admin/admin_menu";	// 관리자 메뉴페이지 주소
+			// 인증이 없는 상태에서 인증이 필요한 URl요청주소를 가지고 있을 때
+			if(session.getAttribute("targerUrl2") != null) {
+				url = (String) session.getAttribute("targerUrl2");
+			}else {
+				url = "/admin/admin_menu";	// 관리자 메인 페이지
+			}
 	}else {
 		url = "/admin/intro";	// 로그인 폼 주소
 		msg = "failPW"; 

@@ -18,13 +18,13 @@ public class AdOrderServiceImpl implements AdOrderService {
 	private final AdOrderMapper adOrderMapper;
 
 	@Override
-	public List<OrderVO> order_list(Criteria cri) {
-		return adOrderMapper.order_list(cri);
+	public List<OrderVO> order_list(Criteria cri, String start_date, String end_date) {
+		return adOrderMapper.order_list(cri, start_date, end_date); 
 	}
 
 	@Override
-	public int getTotalCount(Criteria cri) {
-		return adOrderMapper.getTotalCount(cri);
+	public int getTotalCount(Criteria cri, String start_date, String end_date) {
+		return adOrderMapper.getTotalCount(cri, start_date, end_date);
 	}
 
 	@Override
@@ -41,6 +41,8 @@ public class AdOrderServiceImpl implements AdOrderService {
 	public List<OrderDetailProductVO> OrderDetailInfo2(Long ord_code) {
 		return adOrderMapper.OrderDetailInfo2(ord_code);
 	}
+
+
 
 	
 }

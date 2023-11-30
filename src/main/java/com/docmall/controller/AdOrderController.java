@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,16 +39,16 @@ public class AdOrderController {
 
 	// 상품리스트	(목록과 페이지)
 		@GetMapping("/order_list")
-		public void order_list(Criteria cri, Model model) throws Exception {
+		public void order_list(Criteria cri,@ModelAttribute("start_date") String start_date, @ModelAttribute("end_date") String end_date, Model model) throws Exception {
 			
 			cri.setAmount(2);	// 10 -> 2 한페이지에 출력할 데이터 수 변경
 			
-			List<OrderVO> order_list = adOrderService.order_list(cri);
+			List<OrderVO> order_list = adOrderService.order_list(cri, start_date, end_date);
 			model.addAttribute("order_list", order_list);
 			
-			int totalCount = adOrderService.getTotalCount(cri);
+			int totalCount = adOrderService.getTotalCount(cri, start_date, end_date);
 			model.addAttribute("pageMaker", new PageDTO(cri, totalCount));
-		}
+		} 
 		
 		// 상품리스트에서 보여줄 이미지. <img src="매핑주소">
 		@ResponseBody

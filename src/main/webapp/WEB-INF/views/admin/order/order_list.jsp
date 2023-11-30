@@ -104,6 +104,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <input type="text" name="keyword" value="${pageMaker.cri.keyword}" />	<!-- 주소에 맞게 name 입력 -->
                     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" />
                     <input type="hidden" name="amount" value="${pageMaker.cri.amount}" />
+                    날짜검색 : <input type="date" name="start_date" value="${start_date}">
+                    ~
+                    <input type="date" name="end_date" value="${end_date}">
                     <button type="submit" class="btn btn-primary">검색</button>
                   </form>
                 </div>
@@ -300,6 +303,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       actionForm.attr("action","/admin/order/order_list");
       actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+      
+      //<input type="date" name="start_date" value="${start_date}">
+      actionForm.append('<input type="date" name="start_date" value="${start_date}">');
+      actionForm.append('<input type="date" name="end_date" value="${end_date}">');
 
       actionForm.submit();
     });
@@ -373,7 +380,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       actionForm.append("<input type='hidden' name='ord_code' value='" + ord_code +"'>");
       actionForm.append("<input type='hidden' name='pro_num' value='" + pro_num +"'>");
 
-
       actionForm.attr("action", "/admin/order/order_product_delete");
       actionForm.submit();
     });
@@ -388,7 +394,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
       let url = "/admin/order/order_detail_info2/" + ord_code;
 
-      $("#order_detail_content").load(url);
+      // ajax기능을 요청시 설정하는 메소드
+      $.ajaxSetup({
+        'headers' : {
+          'AJAX' : 'true'
+        }
+      });
+
+      $("#order_detail_content").load(url, function(response, status, xhr) {
+        if(status == "error") {
+          alert("관리자 로그인 페이지로 이동");
+          location.href="/admin/intro";
+        }
+      });
       // modal() : 부트스트랩 4.6메소드
       $("#order_detail_modal").modal('show');
     });

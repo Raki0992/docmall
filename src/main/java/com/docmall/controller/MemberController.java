@@ -110,7 +110,13 @@ public class MemberController {
 				
 				// 로그인 시간 업데이트
 				memberService.loginTimeUpdate(dto.getMbsp_id());
-				url = "/";	// 메인페이지 주소
+				
+				// 인증이 없는 상태에서 인증이 필요한 URl요청주소를 가지고 있을 때
+				if(session.getAttribute("targerUrl") != null) {
+					url = (String) session.getAttribute("targerUrl");
+				}else {
+					url = "/";	// 메인페이지 주소
+				}
 		}else {
 			url = "/member/login";	// 로그인 폼 주소
 			msg = "비밀번호가 일치하지 않습니다."; 
